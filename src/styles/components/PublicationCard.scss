@@ -1,4 +1,3 @@
-
 // src/styles/components/PublicationCard.scss
 @import '../variables';
 
@@ -7,16 +6,27 @@
   border-radius: $border-radius-lg;
   box-shadow: $shadow-md;
   padding: $spacing-6;
-  transition: $transition-normal;
+  transition: $transition-bezier; // Using improved bezier curve transition
   height: 100%;
   display: flex;
   flex-direction: column;
   position: relative;
   overflow: hidden;
   
+  // Enhanced hover effect as shown in design
   &:hover {
     box-shadow: $shadow-lg;
     transform: translateY(-4px);
+    
+    .publication-card__link {
+      text-decoration: underline;
+    }
+    
+    .publication-card__download {
+      background-color: $primary-color;
+      color: $white;
+      transform: translateY(-2px);
+    }
   }
   
   &__category {
@@ -28,6 +38,7 @@
     font-weight: $font-weight-semibold;
     text-transform: uppercase;
     color: $white;
+    z-index: 1;
     
     &--governance {
       background-color: $primary-color;
@@ -49,6 +60,15 @@
   &__title {
     font-size: $font-size-xl;
     margin: $spacing-4 0 $spacing-2;
+    font-family: $font-family-serif;
+    line-height: 1.3;
+    
+    // Limit to 2 lines with ellipsis
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: 2.6em;
     
     a {
       color: $primary-color;
@@ -65,12 +85,28 @@
     font-size: $font-size-sm;
     color: $gray;
     margin-bottom: $spacing-3;
+    display: flex;
+    align-items: center;
+    
+    // Add calendar icon
+    &::before {
+      content: '📅';
+      margin-right: $spacing-2;
+      font-size: 1em;
+    }
   }
   
   &__summary {
     color: $dark-gray;
     margin-bottom: $spacing-4;
     flex: 1;
+    line-height: $line-height-normal;
+    
+    // Limit to 3 lines with ellipsis
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
   
   &__footer {
@@ -79,11 +115,21 @@
     align-items: center;
     padding-top: $spacing-3;
     border-top: 1px solid $light-gray;
+    margin-top: auto; // Push to bottom
   }
   
   &__meta {
     font-size: $font-size-sm;
     color: $gray;
+    display: flex;
+    align-items: center;
+    
+    // Add document icon
+    &::before {
+      content: '📄';
+      margin-right: $spacing-2;
+      font-size: 1em;
+    }
   }
   
   &__actions {
@@ -97,6 +143,7 @@
     color: $primary-color;
     text-decoration: none;
     transition: $transition-fast;
+    padding: $spacing-1 0;
     
     &:hover {
       text-decoration: underline;
@@ -107,16 +154,29 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     margin-left: $spacing-2;
     background-color: $light-gray;
     border-radius: 50%;
-    transition: $transition-fast;
+    transition: $transition-normal;
     
     &:hover {
       background-color: $primary-color;
       color: $white;
+      transform: translateY(-2px);
+      box-shadow: $shadow-sm;
     }
+    
+    // Download icon animation
+    &:active {
+      transform: translateY(1px);
+    }
+  }
+  
+  // Focus styles for keyboard navigation
+  &:focus-within {
+    outline: 2px solid $primary-color;
+    outline-offset: 2px;
   }
 }

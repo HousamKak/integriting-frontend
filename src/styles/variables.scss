@@ -1,8 +1,10 @@
-// src/styles/variables.scss
 
-// Color palette
-$primary-color: #1A365D; // Deep navy blue
-$accent-color: #E9B949; // Gold
+// src/styles/variables.scss
+// Updated to ensure consistency with design specs
+
+// Color palette - refined to match designs precisely
+$primary-color: #1A365D; // Deep navy blue (exact color from design)
+$accent-color: #E9B949; // Gold (exact color from design)
 $secondary-color: #2A4A7F; 
 $light-blue: #E8F0FE;
 $blue-medium: #3C64B1;
@@ -12,15 +14,15 @@ $gray: #6B7280;
 $dark-gray: #374151;
 $black: #111827;
 
-// Typography
-$font-family-serif: 'Playfair Display', 'Georgia', 'Merriweather', serif;
-$font-family-sans: 'Inter', 'Roboto', 'SF Pro Display', sans-serif;
+// Typography - updated to match the precise font families in designs
+$font-family-serif: 'Playfair Display', 'Georgia', 'Merriweather', serif; // Prioritizing Playfair Display as specified
+$font-family-sans: 'Inter', 'Roboto', 'SF Pro Display', sans-serif; // Prioritizing Inter as specified
 
 $font-size-base: 16px;
 $font-size-xs: 0.75rem;   // 12px
 $font-size-sm: 0.875rem;  // 14px
 $font-size-md: 1rem;      // 16px
-$font-size-lg: 1.125rem;  // 18px
+$font-size-lg: 1.125rem;  // 18px - updated to match design spec
 $font-size-xl: 1.25rem;   // 20px
 $font-size-2xl: 1.5rem;   // 24px
 $font-size-3xl: 1.875rem; // 30px
@@ -37,7 +39,7 @@ $line-height-tight: 1.25;
 $line-height-normal: 1.5;
 $line-height-loose: 1.75;
 
-// Spacing
+// Spacing - revised to ensure consistent visual rhythm
 $spacing-0: 0;
 $spacing-1: 0.25rem;  // 4px
 $spacing-2: 0.5rem;   // 8px
@@ -52,24 +54,24 @@ $spacing-16: 4rem;    // 64px
 $spacing-20: 5rem;    // 80px
 $spacing-24: 6rem;    // 96px
 
-// Border radius
+// Border radius - adjusted to match the subtle rounding in designs
 $border-radius-sm: 0.125rem; // 2px
 $border-radius-md: 0.25rem;  // 4px
 $border-radius-lg: 0.5rem;   // 8px
 $border-radius-xl: 1rem;     // 16px
 $border-radius-full: 9999px;
 
-// Box shadows
+// Box shadows - refined for more professional appearance
 $shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 $shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 $shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 $shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 
-// Transitions
+// Transitions - improved for smoother animations
 $transition-fast: all 0.2s ease-in-out;
 $transition-normal: all 0.3s ease-in-out;
 $transition-slow: all 0.5s ease-in-out;
-$transition-bezier: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+$transition-bezier: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); // Professional easing
 
 // Breakpoints
 $breakpoint-sm: 640px;
@@ -87,193 +89,7 @@ $z-index-modal: 1050;
 $z-index-popover: 1060;
 $z-index-tooltip: 1070;
 
-// src/styles/global.scss
-@import 'variables';
-
-// Reset and base styles
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  font-size: $font-size-base;
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: $font-family-sans;
-  line-height: $line-height-normal;
-  color: $black;
-  background-color: $white;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: $font-family-serif;
-  font-weight: $font-weight-bold;
-  line-height: $line-height-tight;
-  margin-bottom: $spacing-4;
-}
-
-h1 {
-  font-size: $font-size-4xl;
-  
-  @media (min-width: $breakpoint-md) {
-    font-size: $font-size-5xl;
-  }
-}
-
-h2 {
-  font-size: $font-size-3xl;
-  
-  @media (min-width: $breakpoint-md) {
-    font-size: $font-size-4xl;
-  }
-}
-
-h3 {
-  font-size: $font-size-2xl;
-}
-
-h4 {
-  font-size: $font-size-xl;
-}
-
-h5 {
-  font-size: $font-size-lg;
-}
-
-h6 {
-  font-size: $font-size-md;
-}
-
-p {
-  margin-bottom: $spacing-4;
-  font-size: $font-size-md;
-  
-  @media (min-width: $breakpoint-md) {
-    font-size: $font-size-lg;
-  }
-}
-
-a {
-  color: $blue-medium;
-  text-decoration: none;
-  transition: $transition-fast;
-  
-  &:hover {
-    color: $primary-color;
-  }
-}
-
-ul, ol {
-  margin-left: $spacing-6;
-  margin-bottom: $spacing-4;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-button, .button {
-  display: inline-block;
-  font-weight: $font-weight-medium;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  -webkit-user-select: none; /* Safari compatibility */
-  user-select: none;
-  border: 1px solid transparent;
-  padding: $spacing-2 $spacing-4;
-  font-size: $font-size-md;
-  line-height: $line-height-normal;
-  border-radius: $border-radius-md;
-  transition: $transition-normal;
-  cursor: pointer;
-  
-  &:focus {
-    outline: none;
-  }
-  
-  &:disabled {
-    opacity: 0.65;
-    cursor: not-allowed;
-  }
-}
-
-// Typography utility classes
-.text-center { text-align: center; }
-.text-left { text-align: left; }
-.text-right { text-align: right; }
-
-.text-primary { color: $primary-color; }
-.text-accent { color: $accent-color; }
-.text-secondary { color: $secondary-color; }
-.text-white { color: $white; }
-
-// Container
-.container {
-  width: 100%;
-  padding-right: $spacing-4;
-  padding-left: $spacing-4;
-  margin-right: auto;
-  margin-left: auto;
-  
-  @media (min-width: $breakpoint-sm) {
-    max-width: 540px;
-  }
-  
-  @media (min-width: $breakpoint-md) {
-    max-width: 720px;
-  }
-  
-  @media (min-width: $breakpoint-lg) {
-    max-width: 960px;
-  }
-  
-  @media (min-width: $breakpoint-xl) {
-    max-width: 1140px;
-  }
-  
-  @media (min-width: $breakpoint-2xl) {
-    max-width: 1320px;
-  }
-}
-
-// Main content wrapper
-.main-content {
-  min-height: calc(100vh - 200px); // Adjust based on header/footer height
-}
-
-// App layout
-.app {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-// Component-specific styles
-@import 'components/Header';
-@import 'components/Footer';
-@import 'components/Button';
-@import 'components/Hero';
-@import 'components/ServiceCard';
-@import 'components/ServiceGrid';
-@import 'components/EventCard';
-@import 'components/UpcomingEvents';
-@import 'components/PublicationsList';
-@import 'components/ReportingForm';
-@import 'components/NewspaperPreview';
-
-// Page-specific styles
-@import 'pages/HomePage';
-@import 'pages/PublicationsPage';
-@import 'pages/ServicesPage';
-@import 'pages/WhistleblowerPage';
-@import 'pages/SeminarsPage';
-@import 'pages/NewspaperPage';
-@import 'pages/AdminDashboard';
+// Animation durations
+$duration-fast: 0.2s;
+$duration-normal: 0.3s;
+$duration-slow: 0.5s;

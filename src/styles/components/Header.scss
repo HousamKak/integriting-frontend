@@ -8,12 +8,14 @@
   width: 100%;
   z-index: $z-index-fixed;
   padding: $spacing-4 0;
-  transition: $transition-normal;
-  background-color: rgba($white, 0.95);
+  transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+  background-color: rgba($white, 0.97);
+  border-bottom: 1px solid transparent;
   
   &--scrolled {
     box-shadow: $shadow-md;
     padding: $spacing-2 0;
+    border-bottom-color: rgba($light-gray, 0.5);
   }
   
   &__container {
@@ -24,15 +26,32 @@
   
   &__logo {
     z-index: $z-index-fixed + 1;
+    transition: $transition-normal;
     
     h1 {
       font-size: $font-size-2xl;
       margin-bottom: 0;
       color: $primary-color;
+      font-family: $font-family-serif;
+      font-weight: $font-weight-bold;
+      transition: $transition-fast;
+      
+      .header--scrolled & {
+        font-size: $font-size-xl;
+      }
     }
     
     a {
       text-decoration: none;
+      display: block;
+      
+      &:focus {
+        outline: none;
+        
+        h1 {
+          text-shadow: 0 0 8px rgba($primary-color, 0.3);
+        }
+      }
     }
   }
   
@@ -62,16 +81,19 @@
       text-decoration: none;
       transition: $transition-fast;
       position: relative;
+      display: block;
+      padding: $spacing-2 0;
       
       &::after {
         content: '';
         position: absolute;
-        bottom: -4px;
+        bottom: -2px;
         left: 0;
         width: 0;
         height: 2px;
         background-color: $primary-color;
         transition: width 0.3s ease;
+        opacity: 0.8;
       }
       
       &:hover, &:focus {
@@ -90,6 +112,8 @@
         
         &::after {
           width: 100%;
+          opacity: 1;
+          height: 3px;
         }
       }
     }
@@ -102,9 +126,12 @@
     color: $white !important;
     border-radius: $border-radius-md;
     transition: $transition-normal;
+    font-weight: $font-weight-medium;
     
     &:hover, &:focus {
       background-color: darken($primary-color, 10%);
+      transform: translateY(-2px);
+      box-shadow: $shadow-sm;
     }
     
     &::after {
@@ -126,15 +153,28 @@
     font-weight: $font-weight-medium;
     font-size: $font-size-md;
     cursor: pointer;
+    padding: $spacing-2 $spacing-3;
+    border-radius: $border-radius-md;
+    transition: $transition-fast;
     
-    &:hover + .header__dropdown {
-      display: block;
+    &:hover {
+      background-color: rgba($light-gray, 0.5);
+    }
+    
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba($primary-color, 0.2);
     }
   }
   
   &__dropdown-icon {
     font-size: 10px;
     margin-left: $spacing-1;
+    transition: $transition-fast;
+    
+    .header__dropdown--active ~ .header__user-button & {
+      transform: rotate(180deg);
+    }
   }
   
   &__dropdown {
@@ -148,9 +188,15 @@
     margin-top: $spacing-2;
     display: none;
     z-index: $z-index-dropdown;
+    transform: translateY(10px);
+    opacity: 0;
+    transition: transform 0.2s ease, opacity 0.2s ease;
     
-    &:hover {
+    &--active {
       display: block;
+      transform: translateY(0);
+      opacity: 1;
+      animation: fadeIn 0.2s ease-out;
     }
     
     &::before {
@@ -178,6 +224,16 @@
       color: $primary-color;
     }
     
+    &:first-child {
+      border-top-left-radius: $border-radius-md;
+      border-top-right-radius: $border-radius-md;
+    }
+    
+    &:last-child {
+      border-bottom-left-radius: $border-radius-md;
+      border-bottom-right-radius: $border-radius-md;
+    }
+    
     &--button {
       width: 100%;
       text-align: left;
@@ -200,6 +256,7 @@
     border: none;
     cursor: pointer;
     z-index: $z-index-fixed + 1;
+    padding: 0;
     
     @media (min-width: $breakpoint-lg) {
       display: none;
@@ -243,6 +300,8 @@
     transform: translateX(100%);
     transition: transform 0.3s ease-in-out;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
     
     @media (min-width: $breakpoint-lg) {
       display: none;
@@ -250,6 +309,7 @@
     
     &--active {
       transform: translateX(0);
+      box-shadow: $shadow-lg;
     }
   }
   
@@ -317,5 +377,17 @@
     height: 1px;
     background-color: $light-gray;
     margin: $spacing-6 0;
+  }
+}
+
+// Animation keyframes
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

@@ -1,0 +1,248 @@
+// src/styles/global.scss
+@import 'variables';
+
+// Reset and base styles
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: $font-size-base;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: $font-family-sans; // Updated to ensure Inter is used
+  line-height: $line-height-normal;
+  color: $black;
+  background-color: $white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family-serif; // Updated to ensure Playfair Display is used
+  font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
+  margin-bottom: $spacing-4;
+  color: $primary-color; // Ensuring consistent heading color
+}
+
+h1 {
+  font-size: $font-size-4xl;
+  
+  @media (min-width: $breakpoint-md) {
+    font-size: $font-size-5xl;
+  }
+}
+
+h2 {
+  font-size: $font-size-3xl;
+  
+  @media (min-width: $breakpoint-md) {
+    font-size: $font-size-4xl;
+  }
+}
+
+h3 {
+  font-size: $font-size-2xl;
+}
+
+h4 {
+  font-size: $font-size-xl;
+}
+
+h5 {
+  font-size: $font-size-lg;
+}
+
+h6 {
+  font-size: $font-size-md;
+}
+
+p {
+  margin-bottom: $spacing-4;
+  font-size: $font-size-md;
+  color: $dark-gray; // Ensuring consistent paragraph color
+  
+  @media (min-width: $breakpoint-md) {
+    font-size: $font-size-lg;
+  }
+}
+
+a {
+  color: $blue-medium;
+  text-decoration: none;
+  transition: $transition-fast;
+  
+  &:hover {
+    color: $primary-color;
+  }
+}
+
+ul, ol {
+  margin-left: $spacing-6;
+  margin-bottom: $spacing-4;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+button, .button {
+  display: inline-block;
+  font-weight: $font-weight-medium;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: $spacing-2 $spacing-4;
+  font-size: $font-size-md;
+  line-height: $line-height-normal;
+  border-radius: $border-radius-md;
+  transition: $transition-normal;
+  cursor: pointer;
+  font-family: $font-family-sans; // Ensuring consistent font
+  
+  &:focus {
+    outline: none;
+  }
+  
+  &:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+  }
+}
+
+// Accessibility improvements
+:focus-visible {
+  outline: 2px solid $primary-color;
+  outline-offset: 2px;
+}
+
+// Skip to content link for keyboard users
+.skip-to-content {
+  position: absolute;
+  left: -9999px;
+  top: 1em;
+  z-index: $z-index-tooltip;
+  background: $white;
+  color: $primary-color;
+  padding: $spacing-2 $spacing-4;
+  border-radius: $border-radius-md;
+  box-shadow: $shadow-md;
+  
+  &:focus {
+    left: 1em;
+  }
+}
+
+// Typography utility classes
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.text-primary { color: $primary-color; }
+.text-accent { color: $accent-color; }
+.text-secondary { color: $secondary-color; }
+.text-white { color: $white; }
+
+// Container
+.container {
+  width: 100%;
+  padding-right: $spacing-4;
+  padding-left: $spacing-4;
+  margin-right: auto;
+  margin-left: auto;
+  
+  @media (min-width: $breakpoint-sm) {
+    max-width: 540px;
+  }
+  
+  @media (min-width: $breakpoint-md) {
+    max-width: 720px;
+  }
+  
+  @media (min-width: $breakpoint-lg) {
+    max-width: 960px;
+  }
+  
+  @media (min-width: $breakpoint-xl) {
+    max-width: 1140px;
+  }
+  
+  @media (min-width: $breakpoint-2xl) {
+    max-width: 1320px;
+  }
+}
+
+// Main content wrapper
+.main-content {
+  min-height: calc(100vh - 200px); // Adjust based on header/footer height
+}
+
+// App layout
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+// Screen reader only text
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+// Visibility helpers
+.visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: auto;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap;
+}
+
+// Focus styles for keyboard users
+*:focus-visible {
+  outline: 2px solid $primary-color;
+  outline-offset: 2px;
+}
+
+// Component-specific styles
+@import 'components/Header';
+@import 'components/Footer';
+@import 'components/Button';
+@import 'components/Hero';
+@import 'components/ServiceCard';
+@import 'components/ServiceGrid';
+@import 'components/EventCard';
+@import 'components/UpcomingEvents';
+@import 'components/PublicationsList';
+@import 'components/ReportingForm';
+@import 'components/NewspaperPreview';
+
+// Page-specific styles
+@import 'pages/HomePage';
+@import 'pages/PublicationsPage';
+@import 'pages/ServicesPage';
+@import 'pages/WhistleblowerPage';
+@import 'pages/SeminarsPage';
+@import 'pages/NewspaperPage';
+@import 'pages/AdminDashboard';

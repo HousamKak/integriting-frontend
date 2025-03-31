@@ -9,6 +9,13 @@
     display: flex;
     overflow-x: auto;
     padding-bottom: 1px; // Prevent scrollbar from appearing due to bottom border
+    -ms-overflow-style: none; // Hide scrollbar in IE and Edge
+    scrollbar-width: none; // Hide scrollbar in Firefox
+    
+    // Hide scrollbar in Chrome, Safari and Opera
+    &::-webkit-scrollbar {
+      display: none;
+    }
     
     @media (min-width: $breakpoint-md) {
       justify-content: center;
@@ -26,7 +33,7 @@
     color: $gray;
     cursor: pointer;
     position: relative;
-    transition: $transition-fast;
+    transition: $transition-normal;
     
     &:hover {
       color: $primary-color;
@@ -45,7 +52,50 @@
         height: 3px;
         background-color: $primary-color;
         border-radius: 3px 3px 0 0;
+        
+        // Animated underline that slides in from center
+        animation: slideIn 0.3s ease-out forwards;
       }
     }
+    
+    // Focus styles for accessibility
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba($primary-color, 0.4);
+      border-radius: $border-radius-sm;
+    }
+    
+    // Add hover indicator
+    &:not(.seminar-tabs__tab--active):hover::before {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 10%;
+      width: 80%;
+      height: 3px;
+      background-color: rgba($primary-color, 0.2);
+      border-radius: 3px 3px 0 0;
+    }
+  }
+  
+  // Responsive styles
+  @media (max-width: $breakpoint-sm) {
+    &__tab {
+      padding: $spacing-2 $spacing-3;
+      min-width: 100px;
+      font-size: $font-size-sm;
+    }
+  }
+}
+
+// Animation keyframes
+@keyframes slideIn {
+  0% {
+    width: 0;
+    left: 50%;
+  }
+  100% {
+    width: 100%;
+    left: 0;
   }
 }

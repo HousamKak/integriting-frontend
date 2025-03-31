@@ -1,5 +1,3 @@
-
-// Update the EventCard.scss to handle past events
 // src/styles/components/EventCard.scss
 @import '../variables';
 
@@ -8,7 +6,11 @@
   border-radius: $border-radius-lg;
   box-shadow: $shadow-md;
   overflow: hidden;
-  transition: $transition-normal;
+  transition: $transition-bezier; // Using custom bezier for smoother effect
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
   
   &:hover {
     box-shadow: $shadow-lg;
@@ -16,15 +18,19 @@
   }
   
   &--past {
-    opacity: 0.8;
+    opacity: 0.9; // Slightly more visible than previous 0.8
+    
+    &:hover {
+      opacity: 1; // Full opacity on hover
+    }
   }
   
   &__date {
     position: absolute;
     top: $spacing-3;
     left: $spacing-3;
-    width: 40px;
-    height: 40px;
+    width: 50px; // Increased for better visibility
+    height: 50px; // Increased for better visibility
     background-color: $white;
     color: $primary-color;
     border-radius: 50%;
@@ -34,22 +40,44 @@
     font-weight: $font-weight-bold;
     z-index: 1;
     box-shadow: $shadow-md;
+    border: 2px solid rgba($primary-color, 0.1); // Subtle border
+    animation: pulseScale 2s infinite alternate ease-in-out; // Subtle pulse animation
   }
   
   &__day {
-    font-size: $font-size-lg;
+    font-size: $font-size-xl; // Increased for visibility
+    line-height: 1;
   }
   
   &__image-container {
     position: relative;
     height: 200px;
     background-color: $light-gray;
+    overflow: hidden; // Ensure image doesn't overflow container
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 50%;
+      background-image: linear-gradient(to top, rgba($black, 0.5), transparent);
+      z-index: 1;
+      opacity: 0.7;
+      pointer-events: none;
+    }
   }
   
   &__image {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.5s ease;
+    
+    .event-card:hover & {
+      transform: scale(1.05); // Zoom effect on hover
+    }
   }
   
   &__past-overlay {
@@ -66,16 +94,31 @@
     font-weight: $font-weight-semibold;
     font-size: $font-size-lg;
     text-transform: uppercase;
+    z-index: 2;
   }
   
   &__content {
     padding: $spacing-4 $spacing-6;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
   }
   
   &__title {
     font-size: $font-size-xl;
     margin-bottom: $spacing-2;
     color: $primary-color;
+    font-family: $font-family-serif;
+    
+    // Add line clamp to limit to 2 lines
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    
+    @media (min-width: $breakpoint-md) {
+      font-size: $font-size-2xl;
+    }
   }
   
   &__details {
@@ -94,11 +137,23 @@
     font-weight: $font-weight-medium;
     color: $dark-gray;
     margin-bottom: $spacing-1;
+    
+    // Add a small calendar icon
+    &::before {
+      content: '📅 ';
+      margin-right: $spacing-1;
+    }
   }
   
   &__location {
     font-size: $font-size-sm;
     color: $gray;
+    
+    // Add a small location icon
+    &::before {
+      content: '📍 ';
+      margin-right: $spacing-1;
+    }
   }
   
   &__badge {
@@ -120,7 +175,7 @@
     }
     
     &--free {
-      background-color: #10B981;
+      background-color: #10B981; // Green for free events
       color: $white;
     }
   }
@@ -128,6 +183,8 @@
   &__actions {
     display: flex;
     justify-content: flex-end;
+    margin-top: auto; // Push to bottom of card
+    padding-top: $spacing-4;
   }
   
   &__register-button,
@@ -148,6 +205,8 @@
     
     &:hover:not(:disabled) {
       background-color: darken($primary-color, 10%);
+      transform: translateY(-2px);
+      box-shadow: $shadow-sm;
     }
     
     &:disabled {
@@ -162,6 +221,17 @@
     
     &:hover {
       background-color: darken($light-gray, 5%);
+      transform: translateY(-2px);
     }
+  }
+}
+
+// Animation for the date circle
+@keyframes pulseScale {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.05);
   }
 }

@@ -16,8 +16,11 @@ const App = () => {
     <AuthProvider>
       <BrowserRouter>
         <div className="app">
+          {/* Skip to content link for accessibility */}
+          <a href="#main-content" className="skip-to-content">Skip to content</a>
+          
           <Header />
-          <main className="main-content">
+          <main id="main-content" className="main-content" tabIndex="-1">
             <Routes>
               {routes.map((route, index) => (
                 <Route

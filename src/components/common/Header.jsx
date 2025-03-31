@@ -1,5 +1,5 @@
 // src/components/common/Header.jsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import '../../styles/components/Header.scss';
@@ -7,12 +7,13 @@ import '../../styles/components/Header.scss';
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const { currentUser, logout } = useAuth();
   const location = useLocation();
 
   // Navigation items
   const navItems = [
-    { path: '/', label: 'Home' },
+    { path: '/', label: 'Home', exact: true },
     { path: '/publications', label: 'Publications' },
     { path: '/services', label: 'Services' },
     { path: '/whistleblower', label: 'Whistleblower Protection' },
@@ -22,7 +23,7 @@ const Header = () => {
 
   // Admin navigation items
   const adminNavItems = [
-    { path: '/admin', label: 'Dashboard' },
+    { path: '/admin', label: 'Dashboard', exact: true },
     { path: '/admin/publications', label: 'Manage Publications' },
     { path: '/admin/services', label: 'Manage Services' },
     { path: '/admin/seminars', label: 'Manage Seminars' },
@@ -33,74 +34,122 @@ const Header = () => {
   // Toggle mobile menu
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
+    
+    // Prevent body scrolling when menu is open
+    if (!mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
   };
+  
+  // Toggle user dropdown
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownOpen && !event.target.closest('.header__user-menu')) {
+        setDropdownOpen(false);
+      }
+    };
+    
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [dropdownOpen]);
 
   // Close mobile menu on location change
   useEffect(() => {
     setMobileMenuOpen(false);
+    document.body.style.overflow = '';
   }, [location]);
 
   // Check if window is scrolled
+  const handleScroll = useCallback(() => {
+    if (window.scrollY > 30) {
+      setScrolled(true);
+    } else {
+      setScrolled(false);
+    }
+  }, []);
+
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 30) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
-
     window.addEventListener('scroll', handleScroll);
-
-    // Clean up event listener
+    
+    // Cleanup
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [handleScroll]);
 
   // Determine if a nav item is active
-  const isActive = (path) => {
-    if (path === '/') {
-      return location.pathname === '/';
+  const isActive = (path, exact = false) => {
+    if (exact) {
+      return location.pathname === path;
     }
     return location.pathname.startsWith(path);
   };
+  
+  // Handle logout with confirmation
+  const handleLogout = () => {
+    if (window.confirm('Are you sure you want to log out?')) {
+      logout();
+    }
+  };
 
   return (
-    <header className={`header ${scrolled ? 'header--scrolled' : ''}`}>
+    <header className={`header ${scrolled ? 'header--scrolled' : ''}`} role="banner">
+      {/* Skip to content link for accessibility */}
+      <a href="#main-content" className="skip-to-content">Skip to content</a>
+      
       <div className="container header__container">
         <div className="header__logo">
-          <Link to="/">
+          <Link to="/" aria-label="Integriting - Home">
             <h1>Integriting</h1>
           </Link>
         </div>
 
         {/* Desktop Navigation */}
-        <nav className="header__nav">
+        <nav className="header__nav" aria-label="Main Navigation">
           <ul className="header__nav-list">
             {navItems.map((item) => (
               <li 
                 key={item.path} 
-                className={`header__nav-item ${isActive(item.path) ? 'header__nav-item--active' : ''}`}
+                className={`header__nav-item ${isActive(item.path, item.exact) ? 'header__nav-item--active' : ''}`}
               >
-                <Link to={item.path}>{item.label}</Link>
+                <Link to={item.path} aria-current={isActive(item.path, item.exact) ? 'page' : undefined}>
+                  {item.label}
+                </Link>
               </li>
             ))}
 
             {currentUser ? (
               <li className="header__nav-item header__nav-item--user">
                 <div className="header__user-menu">
-                  <button className="header__user-button">
+                  <button 
+                    className="header__user-button"
+                    onClick={toggleDropdown}
+                    aria-expanded={dropdownOpen}
+                    aria-controls="user-dropdown"
+                  >
                     {currentUser.username}
-                    <span className="header__dropdown-icon">▼</span>
+                    <span className="header__dropdown-icon" aria-hidden="true">▼</span>
                   </button>
-                  <div className="header__dropdown">
+                  <div 
+                    id="user-dropdown"
+                    className={`header__dropdown ${dropdownOpen ? 'header__dropdown--active' : ''}`}
+                    aria-hidden={!dropdownOpen}
+                  >
                     {currentUser.role === 'admin' && (
                       <Link to="/admin" className="header__dropdown-item">Admin Dashboard</Link>
                     )}
                     <button 
                       className="header__dropdown-item header__dropdown-item--button"
-                      onClick={logout}
+                      onClick={handleLogout}
                     >
                       Log Out
                     </button>
@@ -119,40 +168,57 @@ const Header = () => {
         <button 
           className={`header__mobile-toggle ${mobileMenuOpen ? 'header__mobile-toggle--active' : ''}`}
           onClick={toggleMobileMenu}
-          aria-label="Toggle navigation"
+          aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={mobileMenuOpen}
+          aria-controls="mobile-nav"
         >
-          <span className="header__mobile-toggle-bar"></span>
-          <span className="header__mobile-toggle-bar"></span>
-          <span className="header__mobile-toggle-bar"></span>
+          <span className="header__mobile-toggle-bar" aria-hidden="true"></span>
+          <span className="header__mobile-toggle-bar" aria-hidden="true"></span>
+          <span className="header__mobile-toggle-bar" aria-hidden="true"></span>
         </button>
 
         {/* Mobile Navigation Menu */}
-        <nav className={`header__mobile-nav ${mobileMenuOpen ? 'header__mobile-nav--active' : ''}`}>
+        <nav 
+          id="mobile-nav"
+          className={`header__mobile-nav ${mobileMenuOpen ? 'header__mobile-nav--active' : ''}`}
+          aria-hidden={!mobileMenuOpen}
+          aria-label="Mobile Navigation"
+        >
           <ul className="header__mobile-nav-list">
             {navItems.map((item) => (
               <li 
                 key={item.path} 
-                className={`header__mobile-nav-item ${isActive(item.path) ? 'header__mobile-nav-item--active' : ''}`}
+                className={`header__mobile-nav-item ${isActive(item.path, item.exact) ? 'header__mobile-nav-item--active' : ''}`}
               >
-                <Link to={item.path}>{item.label}</Link>
+                <Link 
+                  to={item.path}
+                  aria-current={isActive(item.path, item.exact) ? 'page' : undefined}
+                >
+                  {item.label}
+                </Link>
               </li>
             ))}
 
             {currentUser ? (
               <>
-                <li className="header__mobile-nav-divider"></li>
+                <li className="header__mobile-nav-divider" aria-hidden="true"></li>
                 {currentUser.role === 'admin' && adminNavItems.map((item) => (
                   <li 
                     key={item.path} 
-                    className={`header__mobile-nav-item ${isActive(item.path) ? 'header__mobile-nav-item--active' : ''}`}
+                    className={`header__mobile-nav-item ${isActive(item.path, item.exact) ? 'header__mobile-nav-item--active' : ''}`}
                   >
-                    <Link to={item.path}>{item.label}</Link>
+                    <Link 
+                      to={item.path}
+                      aria-current={isActive(item.path, item.exact) ? 'page' : undefined}
+                    >
+                      {item.label}
+                    </Link>
                   </li>
                 ))}
                 <li className="header__mobile-nav-item">
                   <button 
                     className="header__mobile-nav-button"
-                    onClick={logout}
+                    onClick={handleLogout}
                   >
                     Log Out
                   </button>

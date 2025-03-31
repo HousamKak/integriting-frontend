@@ -1,0 +1,127 @@
+// src/styles/components/ServiceGrid.scss
+@import '../variables';
+
+.service-grid {
+  padding: $spacing-8 0 $spacing-16;
+  
+  &__header {
+    text-align: center;
+    margin-bottom: $spacing-8;
+    position: relative;
+  }
+  
+  &__title {
+    font-size: $font-size-3xl;
+    color: $primary-color;
+    font-family: $font-family-serif;
+    margin-bottom: $spacing-6;
+    position: relative;
+    display: inline-block;
+    
+    @media (min-width: $breakpoint-md) {
+      font-size: $font-size-4xl;
+    }
+  }
+  
+  &__underline {
+    position: absolute;
+    bottom: -$spacing-4;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: $accent-color;
+    border-radius: 3px;
+    
+    // Animation for the underline
+    animation: expandWidth 0.5s ease-out forwards;
+  }
+  
+  &__container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-6;
+    
+    @media (min-width: $breakpoint-sm) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @media (min-width: $breakpoint-lg) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    
+    // Add staggered animation for cards
+    & > * {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.5s ease-out forwards;
+      
+      @for $i from 1 through 6 {
+        &:nth-child(#{$i}) {
+          animation-delay: #{$i * 0.1}s;
+        }
+      }
+    }
+  }
+  
+  &__empty, &__loading, &__error {
+    text-align: center;
+    padding: $spacing-8 0;
+    grid-column: 1 / -1;
+  }
+  
+  &__loading {
+    position: relative;
+    height: 200px;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 40px;
+      height: 40px;
+      margin-top: -20px;
+      margin-left: -20px;
+      border: 4px solid rgba($primary-color, 0.3);
+      border-radius: 50%;
+      border-top-color: $primary-color;
+      animation: spin 1s linear infinite;
+    }
+  }
+  
+  &__error {
+    color: #e53e3e;
+    border: 1px solid rgba(#e53e3e, 0.3);
+    padding: $spacing-4;
+    border-radius: $border-radius-md;
+    background-color: rgba(#e53e3e, 0.05);
+  }
+}
+
+// Animation keyframes
+@keyframes expandWidth {
+  from {
+    width: 0;
+  }
+  to {
+    width: 80px;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

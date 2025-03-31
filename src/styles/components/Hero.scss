@@ -13,6 +13,7 @@
     padding: $spacing-20 0;
   }
   
+  // Enhanced background overlay
   &::before {
     content: '';
     position: absolute;
@@ -24,6 +25,7 @@
     z-index: 1;
   }
   
+  // Subtle pattern overlay
   &::after {
     content: '';
     position: absolute;
@@ -36,6 +38,7 @@
     background-position: center;
     opacity: 0.1;
     z-index: 0;
+    animation: slowPan 120s linear infinite alternate; // Slow panning animation
   }
   
   &__content {
@@ -45,6 +48,7 @@
     margin: 0 auto;
     text-align: center;
     padding: 0 $spacing-4;
+    animation: fadeIn 1s ease-out; // Fade in animation
   }
   
   &__title {
@@ -52,6 +56,8 @@
     font-weight: $font-weight-bold;
     margin-bottom: $spacing-6;
     line-height: 1.2;
+    font-family: $font-family-serif; // Ensure Playfair Display usage
+    color: $white;
     
     @media (min-width: $breakpoint-md) {
       font-size: $font-size-5xl;
@@ -63,6 +69,9 @@
     line-height: 1.6;
     margin-bottom: $spacing-8;
     color: rgba($white, 0.9);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
     
     @media (min-width: $breakpoint-md) {
       font-size: $font-size-xl;
@@ -71,6 +80,7 @@
   
   &__cta {
     margin-top: $spacing-6;
+    animation: fadeInUp 1s ease-out 0.5s both; // Animated entry with delay
   }
   
   &__button {
@@ -79,10 +89,48 @@
     font-size: $font-size-lg;
     border-radius: $border-radius-lg;
     box-shadow: 0 4px 14px rgba($accent-color, 0.4);
+    background-color: $accent-color;
+    color: $primary-color;
+    border: none;
     
     &:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba($accent-color, 0.6);
     }
+    
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 3px 10px rgba($accent-color, 0.4);
+    }
+  }
+}
+
+// Animation keyframes
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slowPan {
+  from {
+    background-position: 0% 0%;
+  }
+  to {
+    background-position: 100% 100%;
   }
 }

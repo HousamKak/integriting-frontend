@@ -1,12 +1,28 @@
 // src/components/newspaper/NewspaperPreview.jsx
 import React from 'react';
+import PropTypes from 'prop-types';
 import DownloadButton from './DownloadButton';
 import '../../styles/components/NewspaperPreview.scss';
 
 const NewspaperPreview = ({ newspaper, loading, error }) => {
-  if (loading) return <div className="newspaper-preview__loading">Loading newspaper...</div>;
-  if (error) return <div className="newspaper-preview__error">{error}</div>;
-  if (!newspaper) return <div className="newspaper-preview__empty">No newspaper available at this time.</div>;
+  if (loading) return (
+    <div className="newspaper-preview__loading" aria-live="polite">
+      <div className="loading-spinner"></div>
+      <span className="sr-only">Loading newspaper...</span>
+    </div>
+  );
+  
+  if (error) return (
+    <div className="newspaper-preview__error" role="alert">
+      {error}
+    </div>
+  );
+  
+  if (!newspaper) return (
+    <div className="newspaper-preview__empty">
+      <p>No newspaper available at this time.</p>
+    </div>
+  );
 
   // Format date
   const formatDate = (dateString) => {
@@ -70,11 +86,27 @@ const NewspaperPreview = ({ newspaper, loading, error }) => {
             </div>
           </div>
           
-          <DownloadButton pdfUrl={newspaper.pdf_file_path} />
+          <DownloadButton 
+            pdfUrl={newspaper.pdf_file_path} 
+            fileName={`integriting-journal-${formatDate(newspaper.issue_date).toLowerCase().replace(/\s+/g, '-')}.pdf`}
+          />
         </div>
       </div>
     </div>
   );
+};
+
+NewspaperPreview.propTypes = {
+  newspaper: PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    title: PropTypes.string,
+    description: PropTypes.string,
+    issue_date: PropTypes.string,
+    pdf_file_path: PropTypes.string,
+    cover_image_path: PropTypes.string
+  }),
+  loading: PropTypes.bool,
+  error: PropTypes.string
 };
 
 export default NewspaperPreview;
