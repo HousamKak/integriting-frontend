@@ -1,5 +1,3 @@
-
-// Update EventCard to handle past events differently
 // src/components/seminars/EventCard.jsx
 import React from 'react';
 import { format } from 'date-fns';
@@ -7,7 +5,10 @@ import '../../styles/components/EventCard.scss';
 
 const EventCard = ({ event, isPast = false }) => {
   const { id, title, image_path, event_date, status, seats_available, location } = event;
+  
+  // Format the date
   const formattedDate = format(new Date(event_date), 'MMMM d, yyyy');
+  // Get the day of month for the circle display
   const dayOfMonth = format(new Date(event_date), 'd');
   
   // Determine status badge
@@ -21,6 +22,18 @@ const EventCard = ({ event, isPast = false }) => {
       statusBadge = <span className="event-card__badge event-card__badge--free">Free</span>;
     }
   }
+
+  // Handle registration click
+  const handleRegisterClick = () => {
+    // This would typically open a registration form modal or redirect to a registration page
+    console.log(`Register for event: ${id}`);
+  };
+
+  // Handle view materials click
+  const handleMaterialsClick = () => {
+    // This would typically download or open materials for past events
+    console.log(`View materials for event: ${id}`);
+  };
 
   return (
     <div className={`event-card ${isPast ? 'event-card--past' : ''}`}>
@@ -54,12 +67,16 @@ const EventCard = ({ event, isPast = false }) => {
         
         <div className="event-card__actions">
           {isPast ? (
-            <button className="event-card__materials-button">
+            <button 
+              className="event-card__materials-button"
+              onClick={handleMaterialsClick}
+            >
               View Materials
             </button>
           ) : (
             <button 
               className="event-card__register-button"
+              onClick={handleRegisterClick}
               disabled={status === 'Sold Out'}
             >
               Register

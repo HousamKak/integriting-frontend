@@ -1,4 +1,3 @@
-
 // src/styles/components/SeminarTabs.scss
 @import '../variables';
 
@@ -9,6 +8,7 @@
   &__container {
     display: flex;
     overflow-x: auto;
+    padding-bottom: 1px; // Prevent scrollbar from appearing due to bottom border
     
     @media (min-width: $breakpoint-md) {
       justify-content: center;
@@ -26,7 +26,7 @@
     color: $gray;
     cursor: pointer;
     position: relative;
-    transition: $transition-normal;
+    transition: $transition-fast;
     
     &:hover {
       color: $primary-color;

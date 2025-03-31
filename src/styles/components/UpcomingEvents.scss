@@ -1,0 +1,90 @@
+// src/styles/components/UpcomingEvents.scss
+@import '../variables';
+
+.upcoming-events {
+  &__loading,
+  &__error,
+  &__empty {
+    text-align: center;
+    padding: $spacing-8;
+    background-color: $light-gray;
+    border-radius: $border-radius-lg;
+  }
+  
+  &__error {
+    color: #e63946;
+  }
+  
+  &__timeline {
+    position: relative;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 24px;
+      width: 2px;
+      background-color: $light-gray;
+      
+      @media (min-width: $breakpoint-md) {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+  }
+  
+  &__month-group {
+    margin-bottom: $spacing-12;
+    position: relative;
+  }
+  
+  &__month {
+    background-color: $primary-color;
+    color: $white;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    display: inline-block;
+    padding: $spacing-2 $spacing-4;
+    border-radius: $border-radius-md;
+    margin-bottom: $spacing-6;
+    margin-left: 50px;
+    position: relative;
+    
+    @media (min-width: $breakpoint-md) {
+      margin-left: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    
+    &::before {
+      content: '';
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      background-color: $primary-color;
+      border-radius: 50%;
+      left: -40px;
+      top: 50%;
+      transform: translateY(-50%);
+      
+      @media (min-width: $breakpoint-md) {
+        left: 50%;
+        top: 100%;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+  
+  &__cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-6;
+    padding-left: 50px;
+    
+    @media (min-width: $breakpoint-md) {
+      padding-left: 0;
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}

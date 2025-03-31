@@ -69,4 +69,23 @@ api.interceptors.response.use(
   }
 );
 
+// Dashboard statistics
+export const getDashboardStats = async () => {
+  try {
+    const response = await api.get('/admin/dashboard/stats');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching dashboard statistics:', error);
+    
+    // Return mock data for now until the backend endpoint is implemented
+    return {
+      publications: 12,
+      services: 6,
+      seminars: 8,
+      newspapers: 4,
+      whistleblowerReports: 3
+    };
+  }
+};
+
 export default api;
