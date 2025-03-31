@@ -1,0 +1,262 @@
+
+// src/styles/pages/HomePage.scss
+@import '../variables';
+
+.home-page {
+  margin-top: 0; // Hero already has margin to account for header
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: $spacing-8;
+  position: relative;
+  font-size: $font-size-3xl;
+  color: $primary-color;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -$spacing-4;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: $accent-color;
+    border-radius: 3px;
+  }
+}
+
+// Belief Section
+.belief-section {
+  padding: $spacing-16 0;
+  background-color: $white;
+  
+  .belief-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .belief-text {
+    font-size: $font-size-xl;
+    line-height: 1.6;
+    text-align: center;
+    color: $dark-gray;
+  }
+}
+
+// Services Section
+.services-section {
+  padding: $spacing-16 0;
+  background-color: $light-gray;
+}
+
+// Highlights Section
+.highlights-section {
+  padding: $spacing-16 0;
+  background-color: $white;
+}
+
+.highlights-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-6;
+  
+  @media (min-width: $breakpoint-md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media (min-width: $breakpoint-lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.highlight-card {
+  background-color: $white;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-md;
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: $transition-normal;
+  
+  &:hover {
+    box-shadow: $shadow-lg;
+    transform: translateY(-4px);
+  }
+  
+  &--seminars {
+    border-top: 4px solid $primary-color;
+  }
+  
+  &--journal {
+    border-top: 4px solid $accent-color;
+  }
+  
+  &--whistleblower {
+    border-top: 4px solid $blue-medium;
+  }
+  
+  &__title {
+    padding: $spacing-4 $spacing-6;
+    margin: 0;
+    font-size: $font-size-xl;
+    color: $primary-color;
+    border-bottom: 1px solid $light-gray;
+  }
+  
+  &__content {
+    padding: $spacing-6;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  &__text {
+    margin-bottom: $spacing-4;
+    color: $dark-gray;
+  }
+  
+  &__button {
+    margin-top: auto;
+  }
+  
+  &__loading, &__empty {
+    padding: $spacing-6;
+    text-align: center;
+    color: $gray;
+  }
+}
+
+.upcoming-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 $spacing-4 0;
+}
+
+.upcoming-item {
+  padding: $spacing-3 0;
+  border-bottom: 1px solid $light-gray;
+  
+  &:last-child {
+    border-bottom: none;
+  }
+  
+  &__date {
+    font-size: $font-size-sm;
+    color: $gray;
+    margin-bottom: $spacing-1;
+  }
+  
+  &__title {
+    font-weight: $font-weight-medium;
+    color: $primary-color;
+  }
+}
+
+.journal-preview {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  
+  &__image {
+    height: 200px;
+    margin-bottom: $spacing-4;
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: $border-radius-md;
+    }
+  }
+  
+  &__placeholder {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $primary-color;
+    color: $white;
+    border-radius: $border-radius-md;
+    padding: $spacing-4;
+    text-align: center;
+    
+    h4 {
+      margin: 0;
+    }
+  }
+  
+  &__info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  &__title {
+    margin-top: 0;
+    margin-bottom: $spacing-2;
+    font-size: $font-size-lg;
+    color: $primary-color;
+  }
+  
+  &__date {
+    font-size: $font-size-sm;
+    color: $gray;
+    margin-bottom: $spacing-4;
+  }
+  
+  &__button {
+    margin-top: auto;
+  }
+}
+
+// Why Section
+.why-section {
+  padding: $spacing-16 0;
+  background-color: $light-blue;
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-6;
+  
+  @media (min-width: $breakpoint-md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media (min-width: $breakpoint-lg) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.value-card {
+  background-color: $white;
+  border-radius: $border-radius-lg;
+  padding: $spacing-6;
+  text-align: center;
+  box-shadow: $shadow-md;
+  transition: $transition-normal;
+  
+  &:hover {
+    box-shadow: $shadow-lg;
+    transform: translateY(-4px);
+  }
+  
+  &__icon {
+    font-size: 2.5rem;
+    margin-bottom: $spacing-4;
+  }
+  
+  &__title {
+    font-size: $font-size-xl;
+    margin-bottom: $spacing-3;
+    color: $primary-color;
+  }
+  
+  &__text {
+    color: $dark-gray;
+    margin-bottom: 0;
+  }
+}

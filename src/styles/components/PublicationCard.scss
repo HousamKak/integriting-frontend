@@ -1,0 +1,122 @@
+
+// src/styles/components/PublicationCard.scss
+@import '../variables';
+
+.publication-card {
+  background-color: $white;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-md;
+  padding: $spacing-6;
+  transition: $transition-normal;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  
+  &:hover {
+    box-shadow: $shadow-lg;
+    transform: translateY(-4px);
+  }
+  
+  &__category {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: $spacing-1 $spacing-3;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    text-transform: uppercase;
+    color: $white;
+    
+    &--governance {
+      background-color: $primary-color;
+    }
+    
+    &--compliance {
+      background-color: $blue-medium;
+    }
+    
+    &--financial-crimes {
+      background-color: #e63946;
+    }
+    
+    &--policy {
+      background-color: #2a9d8f;
+    }
+  }
+  
+  &__title {
+    font-size: $font-size-xl;
+    margin: $spacing-4 0 $spacing-2;
+    
+    a {
+      color: $primary-color;
+      text-decoration: none;
+      transition: $transition-fast;
+      
+      &:hover {
+        color: darken($primary-color, 10%);
+      }
+    }
+  }
+  
+  &__date {
+    font-size: $font-size-sm;
+    color: $gray;
+    margin-bottom: $spacing-3;
+  }
+  
+  &__summary {
+    color: $dark-gray;
+    margin-bottom: $spacing-4;
+    flex: 1;
+  }
+  
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: $spacing-3;
+    border-top: 1px solid $light-gray;
+  }
+  
+  &__meta {
+    font-size: $font-size-sm;
+    color: $gray;
+  }
+  
+  &__actions {
+    display: flex;
+    align-items: center;
+  }
+  
+  &__link {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $primary-color;
+    text-decoration: none;
+    transition: $transition-fast;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  
+  &__download {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    margin-left: $spacing-2;
+    background-color: $light-gray;
+    border-radius: 50%;
+    transition: $transition-fast;
+    
+    &:hover {
+      background-color: $primary-color;
+      color: $white;
+    }
+  }
+}

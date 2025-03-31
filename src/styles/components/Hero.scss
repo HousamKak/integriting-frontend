@@ -1,0 +1,88 @@
+// src/styles/components/Hero.scss
+@import '../variables';
+
+.hero {
+  background-color: $primary-color;
+  color: $white;
+  padding: $spacing-16 0;
+  position: relative;
+  overflow: hidden;
+  margin-top: 80px; // Account for fixed header
+  
+  @media (min-width: $breakpoint-md) {
+    padding: $spacing-20 0;
+  }
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient(135deg, rgba($primary-color, 0.95) 0%, rgba($secondary-color, 0.95) 100%);
+    z-index: 1;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: url('/assets/images/hero-pattern.png');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.1;
+    z-index: 0;
+  }
+  
+  &__content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 0 $spacing-4;
+  }
+  
+  &__title {
+    font-size: $font-size-4xl;
+    font-weight: $font-weight-bold;
+    margin-bottom: $spacing-6;
+    line-height: 1.2;
+    
+    @media (min-width: $breakpoint-md) {
+      font-size: $font-size-5xl;
+    }
+  }
+  
+  &__subtitle {
+    font-size: $font-size-lg;
+    line-height: 1.6;
+    margin-bottom: $spacing-8;
+    color: rgba($white, 0.9);
+    
+    @media (min-width: $breakpoint-md) {
+      font-size: $font-size-xl;
+    }
+  }
+  
+  &__cta {
+    margin-top: $spacing-6;
+  }
+  
+  &__button {
+    font-weight: $font-weight-bold;
+    padding: $spacing-3 $spacing-8;
+    font-size: $font-size-lg;
+    border-radius: $border-radius-lg;
+    box-shadow: 0 4px 14px rgba($accent-color, 0.4);
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba($accent-color, 0.6);
+    }
+  }
+}

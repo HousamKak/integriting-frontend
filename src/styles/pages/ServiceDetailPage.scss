@@ -1,0 +1,242 @@
+// src/styles/pages/ServiceDetailPage.scss
+@import '../variables';
+
+.service-detail {
+  padding: $spacing-16 0;
+  margin-top: 80px; // Account for header
+  
+  &__loading,
+  &__error,
+  &__not-found {
+    text-align: center;
+    padding: $spacing-16;
+  }
+  
+  &__error {
+    color: #e63946;
+  }
+  
+  &__breadcrumb {
+    margin-bottom: $spacing-6;
+    font-size: $font-size-sm;
+    color: $gray;
+    
+    &-link {
+      color: $primary-color;
+      text-decoration: none;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    
+    &-separator {
+      margin: 0 $spacing-2;
+    }
+    
+    &-current {
+      color: $dark-gray;
+    }
+  }
+  
+  &__header {
+    text-align: center;
+    margin-bottom: $spacing-8;
+  }
+  
+  &__icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto $spacing-4;
+    
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  
+  &__title {
+    font-size: $font-size-3xl;
+    color: $primary-color;
+    
+    @media (min-width: $breakpoint-md) {
+      font-size: $font-size-4xl;
+    }
+  }
+  
+  &__content {
+    margin-bottom: $spacing-8;
+  }
+  
+  &__section-title {
+    font-size: $font-size-2xl;
+    color: $primary-color;
+    margin-bottom: $spacing-4;
+  }
+  
+  &__description {
+    margin-bottom: $spacing-8;
+  }
+  
+  &__text {
+    font-size: $font-size-lg;
+    line-height: 1.6;
+    color: $dark-gray;
+    
+    p {
+      margin-bottom: $spacing-4;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+  
+  &__benefits {
+    background-color: $light-blue;
+    border-radius: $border-radius-lg;
+    padding: $spacing-6;
+    margin-bottom: $spacing-8;
+  }
+  
+  &__benefits-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  &__benefit-item {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: $spacing-3;
+    font-size: $font-size-lg;
+    color: $dark-gray;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  &__benefit-icon {
+    color: $primary-color;
+    font-weight: $font-weight-bold;
+    margin-right: $spacing-2;
+  }
+  
+  &__process {
+    margin-bottom: $spacing-8;
+  }
+  
+  &__process-steps {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-4;
+    
+    @media (min-width: $breakpoint-md) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @media (min-width: $breakpoint-lg) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+  &__cta {
+    background-color: $primary-color;
+    color: $white;
+    border-radius: $border-radius-lg;
+    padding: $spacing-8;
+    text-align: center;
+  }
+  
+  &__cta-title {
+    font-size: $font-size-2xl;
+    margin-bottom: $spacing-4;
+  }
+  
+  &__cta-text {
+    font-size: $font-size-lg;
+    margin-bottom: $spacing-6;
+    opacity: 0.9;
+  }
+  
+  &__cta-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+    max-width: 400px;
+    margin: 0 auto;
+    
+    @media (min-width: $breakpoint-md) {
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
+  
+  &__cta-button {
+    padding: $spacing-3 $spacing-6;
+    border-radius: $border-radius-md;
+    font-weight: $font-weight-medium;
+    text-decoration: none;
+    transition: $transition-normal;
+    
+    &--primary {
+      background-color: $accent-color;
+      color: $primary-color;
+      
+      &:hover {
+        background-color: darken($accent-color, 10%);
+        transform: translateY(-2px);
+      }
+    }
+    
+    &--secondary {
+      background-color: rgba($white, 0.2);
+      color: $white;
+      
+      &:hover {
+        background-color: rgba($white, 0.3);
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
+
+.process-step {
+  background-color: $white;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-md;
+  padding: $spacing-4;
+  text-align: center;
+  transition: $transition-normal;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-lg;
+  }
+  
+  &__number {
+    width: 40px;
+    height: 40px;
+    background-color: $primary-color;
+    color: $white;
+    font-weight: $font-weight-bold;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto $spacing-3;
+  }
+  
+  &__title {
+    font-size: $font-size-lg;
+    color: $primary-color;
+    margin-bottom: $spacing-2;
+  }
+  
+  &__text {
+    font-size: $font-size-md;
+    color: $dark-gray;
+    margin-bottom: 0;
+  }
+}

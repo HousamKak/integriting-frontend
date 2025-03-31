@@ -1,0 +1,74 @@
+
+// src/styles/pages/PublicationsPage.scss
+@import '../variables';
+
+.publications-page {
+  padding: $spacing-16 0;
+  margin-top: 80px; // Account for header
+}
+
+.publications-header {
+  text-align: center;
+  margin-bottom: $spacing-8;
+  
+  &__title {
+    color: $primary-color;
+    margin-bottom: $spacing-3;
+  }
+  
+  &__subtitle {
+    max-width: 700px;
+    margin: 0 auto;
+    color: $gray;
+  }
+}
+
+.publications-controls {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+  margin-bottom: $spacing-8;
+  
+  @media (min-width: $breakpoint-md) {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.publications-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-6;
+  
+  @media (min-width: $breakpoint-md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media (min-width: $breakpoint-lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.publications-loading,
+.publications-error,
+.publications-empty {
+  text-align: center;
+  padding: $spacing-8;
+}
+
+.publications-error {
+  color: #e63946;
+}
+
+.publications-empty {
+  background-color: $light-gray;
+  border-radius: $border-radius-lg;
+  
+  p {
+    margin-bottom: $spacing-2;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

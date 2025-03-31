@@ -1,0 +1,262 @@
+
+// src/styles/pages/WhistleblowerReports.scss
+@import '../variables';
+
+.whistleblower-reports {
+  padding: $spacing-8 0;
+}
+
+.reports-count {
+  display: flex;
+  align-items: center;
+  font-size: $font-size-lg;
+  color: $dark-gray;
+  
+  &__badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background-color: $primary-color;
+    color: $white;
+    border-radius: 50%;
+    font-size: $font-size-sm;
+    margin-right: $spacing-2;
+    font-weight: $font-weight-bold;
+  }
+}
+
+.reports-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-2;
+  margin-bottom: $spacing-6;
+  
+  &__btn {
+    padding: $spacing-2 $spacing-4;
+    background-color: $light-gray;
+    border: none;
+    border-radius: $border-radius-md;
+    font-family: $font-family-sans;
+    font-size: $font-size-sm;
+    color: $dark-gray;
+    cursor: pointer;
+    transition: $transition-fast;
+    
+    &:hover {
+      background-color: darken($light-gray, 5%);
+    }
+    
+    &--active {
+      background-color: $primary-color;
+      color: $white;
+      
+      &:hover {
+        background-color: darken($primary-color, 5%);
+      }
+    }
+  }
+}
+
+.reports-list {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+}
+
+.report-card {
+  background-color: $white;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-md;
+  overflow: hidden;
+  transition: $transition-normal;
+  
+  &:hover {
+    box-shadow: $shadow-lg;
+  }
+  
+  &--expanded {
+    box-shadow: $shadow-lg;
+  }
+  
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    padding: $spacing-4 $spacing-6;
+    cursor: pointer;
+  }
+  
+  &__info {
+    flex: 1;
+  }
+  
+  &__meta {
+    display: flex;
+    align-items: center;
+    margin-bottom: $spacing-2;
+  }
+  
+  &__date {
+    font-size: $font-size-sm;
+    color: $gray;
+    margin-right: $spacing-3;
+  }
+  
+  &__status {
+    padding: $spacing-1 $spacing-2;
+    border-radius: $border-radius-full;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    text-transform: uppercase;
+    
+    &--pending {
+      background-color: #FEF3C7;
+      color: #92400E;
+    }
+    
+    &--in-progress {
+      background-color: #DBEAFE;
+      color: #1E40AF;
+    }
+    
+    &--resolved {
+      background-color: #D1FAE5;
+      color: #065F46;
+    }
+  }
+  
+  &__title {
+    font-size: $font-size-lg;
+    margin-bottom: $spacing-2;
+    color: $primary-color;
+  }
+  
+  &__preview {
+    color: $gray;
+    font-size: $font-size-md;
+    margin-bottom: 0;
+  }
+  
+  &__toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background-color: $light-gray;
+    border-radius: 50%;
+    font-size: $font-size-lg;
+    color: $dark-gray;
+    margin-left: $spacing-4;
+    transition: $transition-fast;
+    
+    .report-card--expanded & {
+      background-color: $primary-color;
+      color: $white;
+    }
+  }
+  
+  &__content {
+    padding: $spacing-6;
+    border-top: 1px solid $light-gray;
+  }
+  
+  &__details {
+    margin-bottom: $spacing-6;
+  }
+  
+  &__contact {
+    margin-bottom: $spacing-4;
+    
+    h4 {
+      font-size: $font-size-md;
+      margin-bottom: $spacing-2;
+      color: $dark-gray;
+    }
+    
+    p {
+      margin-bottom: $spacing-1;
+    }
+  }
+  
+  &__anonymous {
+    font-style: italic;
+    color: $gray;
+  }
+  
+  &__message {
+    h4 {
+      font-size: $font-size-md;
+      margin-bottom: $spacing-2;
+      color: $dark-gray;
+    }
+  }
+  
+  &__message-content {
+    padding: $spacing-4;
+    background-color: $light-gray;
+    border-radius: $border-radius-md;
+    white-space: pre-line;
+  }
+  
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
+    
+    @media (min-width: $breakpoint-md) {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+  
+  &__status-update {
+    display: flex;
+    flex-direction: column;
+    
+    @media (min-width: $breakpoint-md) {
+      flex-direction: row;
+      align-items: center;
+    }
+    
+    label {
+      margin-right: $spacing-2;
+      margin-bottom: $spacing-2;
+      
+      @media (min-width: $breakpoint-md) {
+        margin-bottom: 0;
+      }
+    }
+  }
+  
+  &__status-select {
+    padding: $spacing-2;
+    border-radius: $border-radius-md;
+    border: 1px solid $gray;
+    font-family: $font-family-sans;
+    
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 2px rgba($primary-color, 0.2);
+    }
+  }
+  
+  &__email-btn {
+    display: inline-block;
+    padding: $spacing-2 $spacing-4;
+    background-color: $blue-medium;
+    color: $white;
+    border-radius: $border-radius-md;
+    text-decoration: none;
+    text-align: center;
+    transition: $transition-fast;
+    
+    &:hover {
+      background-color: darken($blue-medium, 10%);
+      color: $white;
+    }
+  }
+}

@@ -1,0 +1,159 @@
+// src/styles/components/Footer.scss
+@import '../variables';
+
+.footer {
+  background-color: $primary-color;
+  color: $white;
+  padding: $spacing-12 0 $spacing-6;
+  
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-8;
+    margin-bottom: $spacing-10;
+    
+    @media (min-width: $breakpoint-md) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @media (min-width: $breakpoint-lg) {
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    }
+  }
+  
+  &__brand {
+    margin-bottom: $spacing-6;
+    
+    @media (min-width: $breakpoint-md) {
+      margin-bottom: 0;
+    }
+  }
+  
+  &__logo {
+    font-size: $font-size-3xl;
+    margin-bottom: $spacing-2;
+    color: $accent-color;
+  }
+  
+  &__tagline {
+    font-size: $font-size-md;
+    margin-bottom: $spacing-4;
+    color: rgba($white, 0.8);
+  }
+  
+  &__social {
+    display: flex;
+    gap: $spacing-4;
+  }
+  
+  &__social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: rgba($white, 0.1);
+    border-radius: 50%;
+    transition: $transition-normal;
+    
+    &:hover {
+      background-color: $accent-color;
+      color: $primary-color;
+    }
+  }
+  
+  &__social-icon {
+    font-size: $font-size-sm;
+  }
+  
+  &__heading {
+    font-size: $font-size-xl;
+    margin-bottom: $spacing-4;
+    font-weight: $font-weight-semibold;
+    color: $accent-color;
+  }
+  
+  &__links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  &__link-item {
+    margin-bottom: $spacing-2;
+  }
+  
+  &__link {
+    color: rgba($white, 0.8);
+    text-decoration: none;
+    transition: $transition-fast;
+    font-size: $font-size-md;
+    
+    &:hover {
+      color: $accent-color;
+      text-decoration: underline;
+    }
+  }
+  
+  &__address {
+    font-style: normal;
+    margin-bottom: $spacing-4;
+    color: rgba($white, 0.8);
+    font-size: $font-size-md;
+    
+    p {
+      margin-bottom: $spacing-1;
+    }
+  }
+  
+  &__contact-item {
+    margin-bottom: $spacing-2;
+    font-size: $font-size-md;
+    color: rgba($white, 0.8);
+    
+    strong {
+      color: $white;
+    }
+  }
+  
+  &__bottom {
+    padding-top: $spacing-6;
+    border-top: 1px solid rgba($white, 0.2);
+    display: flex;
+    flex-direction: column;
+    
+    @media (min-width: $breakpoint-md) {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+  
+  &__copyright {
+    font-size: $font-size-sm;
+    color: rgba($white, 0.6);
+    margin-bottom: $spacing-4;
+    
+    @media (min-width: $breakpoint-md) {
+      margin-bottom: 0;
+    }
+  }
+  
+  &__legal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-4;
+  }
+  
+  &__legal-link {
+    font-size: $font-size-sm;
+    color: rgba($white, 0.6);
+    text-decoration: none;
+    transition: $transition-fast;
+    
+    &:hover {
+      color: $accent-color;
+      text-decoration: underline;
+    }
+  }
+}

@@ -1,0 +1,218 @@
+
+// src/styles/components/ArchiveCarousel.scss
+@import '../variables';
+
+.archive-carousel {
+  margin-bottom: $spacing-12;
+  
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: $spacing-6;
+  }
+  
+  &__title {
+    font-size: $font-size-2xl;
+    color: $primary-color;
+    margin: 0;
+  }
+  
+  &__filter {
+    display: flex;
+    align-items: center;
+  }
+  
+  &__year-select {
+    padding: $spacing-2 $spacing-4;
+    border: 1px solid $gray;
+    border-radius: $border-radius-md;
+    font-family: $font-family-sans;
+    background-color: $white;
+    color: $dark-gray;
+    
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 2px rgba($primary-color, 0.2);
+    }
+  }
+  
+  &__container {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  &__nav {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $white;
+    border: 1px solid $light-gray;
+    border-radius: 50%;
+    color: $primary-color;
+    font-size: $font-size-2xl;
+    cursor: pointer;
+    transition: $transition-fast;
+    z-index: 10;
+    box-shadow: $shadow-sm;
+    
+    &:hover:not(:disabled) {
+      background-color: $primary-color;
+      color: $white;
+    }
+    
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    &--prev {
+      margin-right: $spacing-2;
+    }
+    
+    &--next {
+      margin-left: $spacing-2;
+    }
+  }
+  
+  &__slider {
+    flex: 1;
+    overflow: hidden;
+  }
+  
+  &__slides {
+    display: flex;
+    transition: transform 0.5s ease;
+    width: 100%;
+  }
+  
+  &__slide {
+    flex: 0 0 100%;
+    width: 100%;
+  }
+  
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-4;
+    
+    @media (min-width: $breakpoint-md) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+  &__item {
+    cursor: pointer;
+    transition: $transition-normal;
+    
+    &:hover {
+      transform: translateY(-4px);
+    }
+  }
+  
+  &__newspaper {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  &__cover {
+    position: relative;
+    height: 0;
+    padding-bottom: 133%; // Newspaper aspect ratio (3:4)
+    overflow: hidden;
+    background-color: $light-gray;
+    border-radius: $border-radius-md;
+    box-shadow: $shadow-md;
+    margin-bottom: $spacing-2;
+  }
+  
+  &__image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  &__placeholder {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-2;
+    background-color: $primary-color;
+    color: $white;
+    text-align: center;
+  }
+  
+  &__placeholder-title {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    margin-bottom: $spacing-1;
+  }
+  
+  &__placeholder-content {
+    font-size: $font-size-xs;
+    line-height: 1.3;
+  }
+  
+  &__issue-info {
+    text-align: center;
+  }
+  
+  &__issue-title {
+    font-size: $font-size-md;
+    color: $primary-color;
+    margin-bottom: $spacing-1;
+    
+    // Limit to 2 lines with ellipsis
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 2.6em;
+  }
+  
+  &__issue-date {
+    font-size: $font-size-sm;
+    color: $gray;
+  }
+  
+  &__pagination {
+    display: flex;
+    justify-content: center;
+    gap: $spacing-2;
+    margin-top: $spacing-4;
+  }
+  
+  &__pagination-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: $light-gray;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: $transition-fast;
+    
+    &--active {
+      background-color: $primary-color;
+      transform: scale(1.2);
+    }
+  }
+  
+  &__empty {
+    text-align: center;
+    padding: $spacing-8;
+    background-color: $light-gray;
+    border-radius: $border-radius-lg;
+    color: $gray;
+  }
+}

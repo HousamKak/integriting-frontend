@@ -1,0 +1,100 @@
+// src/styles/components/Button.scss
+@import '../variables';
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: $font-family-sans;
+  font-weight: $font-weight-medium;
+  border-radius: $border-radius-md;
+  cursor: pointer;
+  transition: $transition-normal;
+  border: 2px solid transparent;
+  text-align: center;
+  white-space: nowrap;
+  
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.3);
+  }
+  
+  &:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  
+  // Variants
+  &--primary {
+    background-color: $primary-color;
+    color: $white;
+    
+    &:hover, &:focus {
+      background-color: darken($primary-color, 10%);
+    }
+  }
+  
+  &--secondary {
+    background-color: $secondary-color;
+    color: $white;
+    
+    &:hover, &:focus {
+      background-color: darken($secondary-color, 10%);
+    }
+  }
+  
+  &--accent {
+    background-color: $accent-color;
+    color: $primary-color;
+    
+    &:hover, &:focus {
+      background-color: darken($accent-color, 10%);
+    }
+  }
+  
+  &--outline {
+    background-color: transparent;
+    border-color: $primary-color;
+    color: $primary-color;
+    
+    &:hover, &:focus {
+      background-color: rgba($primary-color, 0.1);
+    }
+  }
+  
+  &--text {
+    background-color: transparent;
+    color: $primary-color;
+    border: none;
+    padding-left: 0;
+    padding-right: 0;
+    
+    &:hover, &:focus {
+      color: darken($primary-color, 10%);
+      text-decoration: underline;
+    }
+  }
+  
+  // Sizes
+  &--small {
+    padding: $spacing-1 $spacing-3;
+    font-size: $font-size-sm;
+  }
+  
+  &--medium {
+    padding: $spacing-2 $spacing-4;
+    font-size: $font-size-md;
+  }
+  
+  &--large {
+    padding: $spacing-3 $spacing-6;
+    font-size: $font-size-lg;
+  }
+  
+  // Full width
+  &--full-width {
+    width: 100%;
+    display: block;
+  }
+}

@@ -1,0 +1,48 @@
+
+// src/styles/components/SearchBar.scss
+@import '../variables';
+
+.search-bar {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin-left: auto;
+  
+  &__input {
+    width: 100%;
+    padding: $spacing-2 $spacing-8 $spacing-2 $spacing-4;
+    border: 1px solid $gray;
+    border-radius: $border-radius-full;
+    font-family: $font-family-sans;
+    font-size: $font-size-md;
+    transition: $transition-fast;
+    
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+    }
+  }
+  
+  &__button {
+    position: absolute;
+    right: $spacing-2;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    padding: $spacing-1;
+    cursor: pointer;
+    color: $gray;
+    transition: $transition-fast;
+    
+    &:hover {
+      color: $primary-color;
+    }
+  }
+  
+  &__icon {
+    font-size: $font-size-lg;
+    display: block;
+  }
+}

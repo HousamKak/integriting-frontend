@@ -1,0 +1,138 @@
+
+
+// src/styles/pages/SeminarsPage.scss
+@import '../variables';
+
+.seminars-page {
+  margin-top: 80px; // Account for header
+}
+
+.seminars-hero {
+  background-color: $primary-color;
+  color: $white;
+  padding: $spacing-12 0;
+  
+  &__content {
+    text-align: center;
+  }
+  
+  &__title {
+    font-size: $font-size-4xl;
+    margin-bottom: $spacing-4;
+  }
+  
+  &__subtitle {
+    font-size: $font-size-xl;
+    opacity: 0.9;
+  }
+}
+
+.seminars-content {
+  padding-top: $spacing-8;
+}
+
+.seminars-intro {
+  max-width: 800px;
+  margin: 0 auto $spacing-8;
+  text-align: center;
+  
+  &__text {
+    font-size: $font-size-lg;
+    line-height: 1.6;
+    color: $dark-gray;
+  }
+}
+
+.all-events {
+  &__upcoming-title,
+  &__past-title {
+    font-size: $font-size-2xl;
+    color: $primary-color;
+    margin: $spacing-8 0 $spacing-4;
+    
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+}
+
+.seminars-info {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-6;
+  margin: $spacing-12 0;
+  
+  @media (min-width: $breakpoint-md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.info-card {
+  background-color: $white;
+  border-radius: $border-radius-lg;
+  padding: $spacing-6;
+  box-shadow: $shadow-md;
+  
+  &__title {
+    font-size: $font-size-xl;
+    color: $primary-color;
+    margin-bottom: $spacing-4;
+    position: relative;
+    padding-bottom: $spacing-2;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background-color: $accent-color;
+      border-radius: 3px;
+    }
+  }
+  
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    
+    li {
+      position: relative;
+      padding-left: $spacing-6;
+      margin-bottom: $spacing-3;
+      color: $dark-gray;
+      
+      &::before {
+        content: '✓';
+        position: absolute;
+        left: 0;
+        color: $primary-color;
+        font-weight: $font-weight-bold;
+      }
+    }
+  }
+  
+  &__text {
+    color: $dark-gray;
+    line-height: 1.6;
+    margin-bottom: $spacing-3;
+  }
+  
+  &__button {
+    display: inline-block;
+    padding: $spacing-2 $spacing-4;
+    background-color: $primary-color;
+    color: $white;
+    border-radius: $border-radius-md;
+    text-decoration: none;
+    font-weight: $font-weight-medium;
+    transition: $transition-normal;
+    
+    &:hover {
+      background-color: darken($primary-color, 10%);
+      color: $white;
+      transform: translateY(-2px);
+    }
+  }
+}
