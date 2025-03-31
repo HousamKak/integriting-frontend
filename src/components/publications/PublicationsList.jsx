@@ -8,7 +8,7 @@ import '../../styles/components/PublicationsList.scss';
 
 const PublicationsList = () => {
   const [publications, setPublications] = useState([]);
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState(['All']);
   const [activeCategory, setActiveCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);

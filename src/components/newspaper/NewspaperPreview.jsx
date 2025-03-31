@@ -1,5 +1,4 @@
 // src/components/newspaper/NewspaperPreview.jsx
-// We'll update our previous implementation for the dedicated page
 import React from 'react';
 import DownloadButton from './DownloadButton';
 import '../../styles/components/NewspaperPreview.scss';
@@ -56,16 +55,17 @@ const NewspaperPreview = ({ newspaper, loading, error }) => {
             <div className="newspaper-preview__column">
               <h4>Future Risks and Opportunities</h4>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ad quisim civip, dusque est, 
-                ac necc alementioum leasue, dol: eil ciit amet, cluismod pulvinar.
+                An exploration of emerging governance challenges and opportunities that 
+                organizations may face in the coming years, with practical insights for 
+                preparation and adaptation.
               </p>
             </div>
             
             <div className="newspaper-preview__column">
               <h4>Emerging Governance Trends</h4>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. An timeo eliti austor, 
-                pode ac sicni a feupat esit nec venecatis ivitae torfor Id consequat lut amet.
+                Analysis of evolving best practices in corporate governance, regulatory 
+                developments, and innovative approaches to transparency and accountability.
               </p>
             </div>
           </div>
@@ -78,5 +78,3 @@ const NewspaperPreview = ({ newspaper, loading, error }) => {
 };
 
 export default NewspaperPreview;
-
-

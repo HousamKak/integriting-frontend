@@ -1,3 +1,4 @@
+// src/services/newspaperService.js
 import api from './api';
 
 export const getNewspapers = async (year = null) => {
@@ -34,6 +35,17 @@ export const getNewspaperById = async (id) => {
   }
 };
 
+export const getAvailableYears = async () => {
+  try {
+    const response = await api.get('/newspapers/years');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching available years:', error);
+    throw error;
+  }
+};
+
+// Admin-only functions (protected by authentication middleware on backend)
 export const createNewspaper = async (formData) => {
   try {
     const response = await api.post('/newspapers', formData, {

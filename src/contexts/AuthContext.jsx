@@ -27,6 +27,7 @@ export const AuthProvider = ({ children }) => {
         // Verify token is still valid by fetching current user data
         try {
           const userData = await getCurrentUser();
+          // Update with latest user data from server
           setCurrentUser(userData);
         } catch (err) {
           // If token is invalid, log out
@@ -65,6 +66,7 @@ export const AuthProvider = ({ children }) => {
     currentUser,
     isAuthenticated: !!currentUser,
     isAdmin: currentUser?.role === 'admin',
+    isEditor: currentUser?.role === 'editor',
     login,
     logout,
     error,

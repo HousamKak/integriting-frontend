@@ -9,6 +9,7 @@ const DownloadButton = ({ pdfUrl }) => {
       className="download-button" 
       target="_blank" 
       rel="noopener noreferrer"
+      download
     >
       <span className="download-button__icon">📥</span>
       <span className="download-button__text">Download PDF</span>

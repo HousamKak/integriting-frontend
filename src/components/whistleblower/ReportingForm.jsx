@@ -13,37 +13,57 @@ const ReportingForm = () => {
   const [status, setStatus] = useState({
     submitting: false,
     success: false,
-    error: null
+    error: null,
+    referenceNumber: null
   });
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === 'checkbox' ? checked : value
-    });
+    
+    // If anonymous is checked, clear name and email
+    if (name === 'isAnonymous' && checked) {
+      setFormData({
+        ...formData,
+        name: '',
+        email: '',
+        isAnonymous: checked
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: type === 'checkbox' ? checked : value
+      });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setStatus({ submitting: true, success: false, error: null });
+    setStatus({ ...status, submitting: true, error: null });
 
     try {
-      // If anonymous is checked, clear name and email
+      // If anonymous is checked, clear name and email before submitting
       const reportData = { ...formData };
       if (reportData.isAnonymous) {
         reportData.name = '';
         reportData.email = '';
       }
 
-      await submitWhistleblowerReport(reportData);
-      setStatus({ submitting: false, success: true, error: null });
+      const response = await submitWhistleblowerReport(reportData);
+      setStatus({
+        submitting: false,
+        success: true,
+        error: null,
+        referenceNumber: response.referenceNumber
+      });
+      
+      // Reset form after successful submission
       setFormData({ name: '', email: '', message: '', isAnonymous: false });
     } catch (error) {
       setStatus({
         submitting: false,
         success: false,
-        error: 'There was an error submitting your report. Please try again or use the hotline.'
+        error: 'There was an error submitting your report. Please try again or use the hotline.',
+        referenceNumber: null
       });
     }
   };
@@ -53,10 +73,16 @@ const ReportingForm = () => {
       <div className="reporting-form__success">
         <h3>Report Submitted Successfully</h3>
         <p>Thank you for your report. Your information has been submitted securely.</p>
-        <p>If you provided contact information, we may reach out to you for additional details.</p>
+        {status.referenceNumber && (
+          <div className="reporting-form__reference">
+            <p>Your reference number is:</p>
+            <div className="reporting-form__reference-number">{status.referenceNumber}</div>
+            <p>Please save this number to check the status of your report in the future.</p>
+          </div>
+        )}
         <button 
           className="reporting-form__reset-button"
-          onClick={() => setStatus({ submitting: false, success: false, error: null })}
+          onClick={() => setStatus({ submitting: false, success: false, error: null, referenceNumber: null })}
         >
           Submit Another Report
         </button>
@@ -76,6 +102,7 @@ const ReportingForm = () => {
             value={formData.name}
             onChange={handleChange}
             disabled={formData.isAnonymous}
+            placeholder="Your name"
           />
         </div>
 
@@ -88,11 +115,12 @@ const ReportingForm = () => {
             value={formData.email}
             onChange={handleChange}
             disabled={formData.isAnonymous}
+            placeholder="Your email address"
           />
         </div>
 
         <div className="reporting-form__field">
-          <label htmlFor="message">Message</label>
+          <label htmlFor="message">Message <span className="reporting-form__required">*</span></label>
           <textarea
             id="message"
             name="message"
@@ -100,6 +128,7 @@ const ReportingForm = () => {
             onChange={handleChange}
             required
             rows={6}
+            placeholder="Describe the situation or concern in detail"
           />
         </div>
 

@@ -1,10 +1,14 @@
-
 // src/components/newspaper/ArchiveCarousel.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../styles/components/ArchiveCarousel.scss';
 
 const ArchiveCarousel = ({ newspapers, selectedYear, onSelectYear, onSelectNewspaper }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  
+  // Reset current slide when year changes
+  useEffect(() => {
+    setCurrentSlide(0);
+  }, [selectedYear]);
   
   // Filter newspapers by selected year
   const filteredNewspapers = selectedYear === 'All' 
@@ -38,7 +42,7 @@ const ArchiveCarousel = ({ newspapers, selectedYear, onSelectYear, onSelectNewsp
     });
   };
   
-  // Available years from newspapers
+  // Extract available years from newspapers
   const years = [...new Set(newspapers.map(paper => {
     const date = new Date(paper.issue_date);
     return date.getFullYear();

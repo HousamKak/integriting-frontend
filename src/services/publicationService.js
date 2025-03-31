@@ -1,3 +1,4 @@
+// src/services/publicationService.js
 import api from './api';
 
 export const getPublications = async (category = null) => {
