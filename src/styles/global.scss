@@ -226,23 +226,58 @@ button, .button {
 }
 
 // Component-specific styles
+// These imports will automatically be included by webpack
+// Comment out or remove imports for components that are not yet created
+
+// Core components
+@import 'components/Button';
 @import 'components/Header';
 @import 'components/Footer';
-@import 'components/Button';
 @import 'components/Hero';
+
+// Service components
 @import 'components/ServiceCard';
 @import 'components/ServiceGrid';
+
+// Event components
 @import 'components/EventCard';
 @import 'components/UpcomingEvents';
-@import 'components/PublicationsList';
-@import 'components/ReportingForm';
+@import 'components/PastEvents';
+
+// Publication components
+@import 'components/PublicationCard';
+@import 'components/PublicationFilter';
+@import 'components/SearchBar';
+
+// Newspaper components
 @import 'components/NewspaperPreview';
+@import 'components/ArchiveCarousel';
+@import 'components/DownloadButton';
+
+// Whistleblower components
+@import 'components/ReportingForm';
+
+// Admin components
+@import 'components/ContentEditor';
 
 // Page-specific styles
 @import 'pages/HomePage';
 @import 'pages/PublicationsPage';
+@import 'pages/PublicationDetailPage';
 @import 'pages/ServicesPage';
+@import 'pages/ServiceDetailPage';
 @import 'pages/WhistleblowerPage';
 @import 'pages/SeminarsPage';
 @import 'pages/NewspaperPage';
+
+// Admin pages
+@import 'pages/LoginPage';
 @import 'pages/AdminDashboard';
+@import 'pages/ManagePublications';
+@import 'pages/EditPublication';
+@import 'pages/ManageServices';
+@import 'pages/EditService';
+@import 'pages/ManageSeminars';
+@import 'pages/EditSeminar';
+@import 'pages/ManageNewspapers';
+@import 'pages/EditNewspaper';

@@ -91,13 +91,43 @@
     }
   }
   
+  // Mobile adaptations
+  &--expanded {
+    position: absolute;
+    right: $spacing-4;
+    left: $spacing-4;
+    max-width: none;
+    z-index: 10;
+  }
+  
+  &__mobile-toggle {
+    display: none;
+    
+    @media (max-width: $breakpoint-sm) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      background: none;
+      border: none;
+      color: $gray;
+      cursor: pointer;
+    }
+  }
+  
   // Responsive adjustments
   @media (max-width: $breakpoint-sm) {
-    max-width: 100%;
-    
-    &__input {
-      font-size: $font-size-sm;
-      padding: $spacing-2 $spacing-8 $spacing-2 $spacing-3;
+    &__form {
+      display: none;
     }
+    
+    &--expanded &__form {
+      display: block;
+      width: 100%;
+    }
+    
+    max-width: auto;
+    width: auto;
   }
 }

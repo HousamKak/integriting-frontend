@@ -25,7 +25,7 @@
     z-index: 1;
   }
   
-  // Subtle pattern overlay
+  // Subtle pattern overlay - removed dependency on external asset
   &::after {
     content: '';
     position: absolute;
@@ -33,9 +33,8 @@
     right: 0;
     bottom: 0;
     left: 0;
-    background-image: url('/assets/images/hero-pattern.png');
-    background-size: cover;
-    background-position: center;
+    background-image: radial-gradient(circle at 10% 10%, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 20%);
+    background-size: 20px 20px;
     opacity: 0.1;
     z-index: 0;
     animation: slowPan 120s linear infinite alternate; // Slow panning animation
@@ -92,6 +91,9 @@
     background-color: $accent-color;
     color: $primary-color;
     border: none;
+    display: inline-block;
+    text-decoration: none;
+    transition: $transition-normal;
     
     &:hover {
       transform: translateY(-2px);
