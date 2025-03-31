@@ -49,8 +49,8 @@ const LoginPage = () => {
     <div className="login-page">
       <div className="login-container">
         <div className="login-header">
-          <h1>Admin Login</h1>
-          <p>Enter your credentials to access the admin dashboard</p>
+          <h1>Secure Login</h1>
+          <p>Enter your credentials to access the dashboard</p>
         </div>
         
         {error && (
@@ -105,4 +105,3 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
-

@@ -33,6 +33,9 @@ const NewspaperPreview = ({ newspaper, loading, error }) => {
     });
   };
 
+  // Default placeholder image for journal
+  const defaultJournalImage = '/assets/images/default-newspaper.jpg';
+
   return (
     <div className="newspaper-preview">
       <div className="newspaper-preview__header">
@@ -42,10 +45,15 @@ const NewspaperPreview = ({ newspaper, loading, error }) => {
       
       <div className="newspaper-preview__content">
         <div className="newspaper-preview__image-container">
+          {/* Add error handling for image loading */}
           <img 
-            src={newspaper.cover_image_path || '/assets/images/default-newspaper.jpg'} 
-            alt="THE INTEGRITING JOURNAL" 
-            className="newspaper-preview__image" 
+            src={newspaper.cover_image_path || defaultJournalImage} 
+            alt="THE INTEGRITING JOURNAL"
+            className="newspaper-preview__image"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = defaultJournalImage;
+            }}
           />
           <div className="newspaper-preview__overlay">
             <h2 className="newspaper-preview__title">THE INTEGRITING JOURNAL</h2>

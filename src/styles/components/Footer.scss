@@ -40,7 +40,7 @@
   &__tagline {
     font-size: $font-size-md;
     margin-bottom: $spacing-4;
-    color: rgba($white, 0.8);
+    color: rgba($white, 0.9); /* Improved contrast */
     max-width: 300px;
     line-height: 1.5;
   }
@@ -58,7 +58,7 @@
     height: 40px;
     background-color: rgba($white, 0.1);
     border-radius: 50%;
-    transition: $transition-bezier; // Using custom bezier for smoother effect
+    transition: $transition-bezier;
     color: $white;
     
     &:hover {
@@ -118,7 +118,7 @@
   }
   
   &__link {
-    color: rgba($white, 0.8);
+    color: rgba($white, 0.9); /* Improved contrast */
     text-decoration: none;
     transition: $transition-fast;
     font-size: $font-size-md;
@@ -139,11 +139,12 @@
   &__address {
     font-style: normal;
     margin-bottom: $spacing-4;
-    color: rgba($white, 0.8);
+    color: rgba($white, 0.9); /* Improved contrast */
     font-size: $font-size-md;
     
     p {
       margin-bottom: $spacing-1;
+      color: rgba($white, 0.9); /* Improved contrast */
       
       &:last-child {
         margin-bottom: 0;
@@ -154,7 +155,7 @@
   &__contact-item {
     margin-bottom: $spacing-2;
     font-size: $font-size-md;
-    color: rgba($white, 0.8);
+    color: rgba($white, 0.9); /* Improved contrast */
     
     &:last-child {
       margin-bottom: 0;
@@ -180,7 +181,7 @@
   
   &__copyright {
     font-size: $font-size-sm;
-    color: rgba($white, 0.6);
+    color: rgba($white, 0.8); /* Improved contrast */
     margin-bottom: $spacing-4;
     
     @media (min-width: $breakpoint-md) {
@@ -196,7 +197,7 @@
   
   &__legal-link {
     font-size: $font-size-sm;
-    color: rgba($white, 0.6);
+    color: rgba($white, 0.8); /* Improved contrast */
     text-decoration: none;
     transition: $transition-fast;
     

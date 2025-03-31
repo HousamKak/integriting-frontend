@@ -21,11 +21,6 @@ const ServiceCard = ({ service }) => {
     return variants[iconName] || 'governance';
   };
   
-  // Get icon path - using proper asset paths
-  const getIconPath = (iconName) => {
-    return `/assets/icons/${iconName || 'default-service'}.svg`;
-  };
-  
   // Truncate description if too long
   const truncatedDescription = description?.length > 120
     ? `${description.substring(0, 120)}...`
@@ -34,7 +29,11 @@ const ServiceCard = ({ service }) => {
   return (
     <div className={`service-card service-card--${getCardVariant(icon)}`}>
       <div className="service-card__icon">
-        <img src={getIconPath(icon)} alt={`${title} icon`} />
+        {/* Use specific alt text for better accessibility */}
+        <img 
+          src={`/assets/icons/${icon || 'default-service'}.svg`} 
+          alt={`${title} service icon`} 
+        />
       </div>
       <h3 className="service-card__title">{title}</h3>
       <p className="service-card__description">{truncatedDescription}</p>

@@ -11,21 +11,20 @@
   flex-direction: column;
   position: relative;
   overflow: hidden;
-  transition: $transition-bezier; // Using custom bezier for smoother effect
-  border-top: 4px solid transparent; // Prepare for hover effect
+  transition: $transition-bezier;
+  border-top: 4px solid transparent;
   
-  // Enhanced hover effect matching design
   &:hover {
-    transform: translateY(-8px); // More pronounced lift effect as shown in design
+    transform: translateY(-8px);
     box-shadow: $shadow-lg;
-    border-top-color: $accent-color; // Gold accent on hover
+    border-top-color: $accent-color;
     
     .service-card__icon img {
-      transform: scale(1.1); // Subtle icon animation
+      transform: scale(1.1);
     }
     
     .service-card__link::after {
-      width: 100%; // Animated underline expansion
+      width: 100%;
     }
   }
   
@@ -33,7 +32,9 @@
     width: 50px;
     height: 50px;
     margin-bottom: $spacing-4;
-    transition: $transition-normal;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     
     img {
       width: 100%;
@@ -47,7 +48,7 @@
     font-size: $font-size-xl;
     color: $primary-color;
     margin-bottom: $spacing-2;
-    font-family: $font-family-serif; // Ensuring consistent typography
+    font-family: $font-family-serif;
     font-weight: $font-weight-semibold;
     transition: $transition-fast;
     
@@ -60,7 +61,7 @@
     color: $dark-gray;
     font-size: $font-size-md;
     margin-bottom: $spacing-4;
-    flex: 1; // Push link to bottom
+    flex: 1;
     line-height: $line-height-normal;
   }
   
@@ -72,8 +73,8 @@
     position: relative;
     transition: $transition-fast;
     padding-bottom: 2px;
+    margin-top: auto;
     
-    // Animated underline effect
     &::after {
       content: '';
       position: absolute;
@@ -108,14 +109,13 @@
   }
   
   &--monitoring {
-    border-top-color: #10B981; // Green variant for monitoring
+    border-top-color: #10B981;
   }
   
   &--whistleblower {
-    border-top-color: #7C3AED; // Purple variant for whistleblower
+    border-top-color: #7C3AED;
   }
   
-  // Ensure accessibility for keyboard navigation
   &:focus-within {
     outline: 2px solid $primary-color;
     outline-offset: 2px;
