@@ -143,45 +143,57 @@ $breakpoint-sm: 640px !default;
     bottom: 30vh;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(255, 255, 255, 0.15);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 255, 255, 0.4);
+    
+    // Clean, modern background
+    background: rgba(255, 255, 255, 0.95);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    
+    // Simple, elegant border
+    border: 1px solid rgba(255, 255, 255, 0.8);
     border-radius: 50px;
-    color: $white;
-    font-size: $font-size-base;
-    font-weight: $font-weight-medium;
-    cursor: pointer;
-    padding: $spacing-3 $spacing-6;
-    font-family: inherit;
-    text-transform: uppercase;
+    
+    // Modern typography
+    color: #2d3748;
+    font-size: 0.9rem;
+    font-weight: 500;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     letter-spacing: 0.5px;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    animation: pulse-glow 3s ease-in-out infinite;
+    text-transform: uppercase;
+    
+    cursor: pointer;
+    padding: 16px 28px;
+    
+    // Smooth, natural transitions
+    transition: all 0.3s ease;
     z-index: 10;
     min-width: 180px;
     text-align: center;
     
+    // Clean shadow with gentle pulse animation
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    animation: clean-pulse 3s ease-in-out infinite;
+    
     &:hover {
-      background: rgba(255, 255, 255, 0.25);
-      border-color: rgba(255, 255, 255, 0.6);
-      color: $white;
+      background: rgba(255, 255, 255, 1);
+      color: #1a202c;
       transform: translateX(-50%) translateY(-8px) scale(1.05);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+      animation: none; /* Stop pulse on hover */
     }
     
     &:active {
       transform: translateX(-50%) translateY(-4px) scale(1.02);
     }
     
-    // Remove the duplicate content
+    // Clean arrow with more visible bounce
     &::after {
       content: '↓';
       display: block;
-      font-size: 1.2rem;
-      margin-top: $spacing-1;
-      animation: bounce-arrow 2s ease-in-out infinite;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      font-size: 18px;
+      margin-top: 6px;
+      opacity: 0.8;
+      animation: visible-bounce 2s ease-in-out infinite;
     }
   }
 }
@@ -424,39 +436,51 @@ $breakpoint-sm: 640px !default;
   &__button {
     display: inline-flex;
     align-items: center;
-    gap: $spacing-2;
-    padding: $spacing-4 $spacing-10;
+    gap: 8px;
+    padding: 14px 32px;
+    
+    // Clean, modern gradient
     background: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
+    
     color: $white;
-    font-weight: $font-weight-medium;
-    font-size: $font-size-lg;
-    border-radius: $border-radius-xl;
+    font-weight: 500;
+    font-size: 16px;
+    border-radius: 50px;
     text-decoration: none;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 
-      0 10px 15px -3px rgba(99, 102, 241, 0.2),
-      0 4px 6px -2px rgba(99, 102, 241, 0.1);
+    letter-spacing: 0.3px;
+    
+    // Smooth transitions
+    transition: all 0.3s ease;
+    
+    // Clean shadow with breathing animation
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    animation: clean-breathing 4s ease-in-out infinite;
+    
     position: relative;
     z-index: 2;
-    letter-spacing: 0.01em;
     
+    // Simple arrow
     &::after {
       content: '→';
-      margin-left: $spacing-1;
+      font-size: 16px;
       transition: transform 0.3s ease;
     }
     
     &:hover {
-      background: linear-gradient(135deg, darken($primary-color, 5%) 0%, darken($secondary-color, 5%) 100%);
+      background: linear-gradient(135deg, darken($primary-color, 8%) 0%, darken($secondary-color, 8%) 100%);
       color: $white;
-      transform: translateY(-2px);
-      box-shadow: 
-        0 20px 25px -5px rgba(99, 102, 241, 0.25),
-        0 10px 10px -5px rgba(99, 102, 241, 0.15);
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.45);
+      animation: none; /* Stop breathing on hover */
       
       &::after {
         transform: translateX(4px);
       }
+    }
+    
+    &:active {
+      transform: translateY(-1px) scale(0.98);
+      box-shadow: 0 3px 12px rgba(99, 102, 241, 0.35);
     }
   }
 }
@@ -526,5 +550,116 @@ $breakpoint-sm: 640px !default;
   }
   90% {
     transform: translateX(-50%) translateY(-2px);
+  }
+}
+
+// New luxury animations for the enhanced button
+@keyframes luxury-pulse {
+  0%, 100% {
+    box-shadow: 
+      inset 0 1px 0 rgba(255, 255, 255, 0.3),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+      0 8px 32px rgba(0, 0, 0, 0.12),
+      0 4px 16px rgba(0, 0, 0, 0.08),
+      0 0 0 0 rgba(255, 255, 255, 0.1);
+  }
+  50% {
+    box-shadow: 
+      inset 0 1px 0 rgba(255, 255, 255, 0.4),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+      0 12px 48px rgba(0, 0, 0, 0.15),
+      0 6px 24px rgba(0, 0, 0, 0.1),
+      0 0 0 8px rgba(255, 255, 255, 0.05);
+  }
+}
+
+@keyframes elegant-bounce {
+  0%, 20%, 53%, 80%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.8;
+  }
+  40%, 43% {
+    transform: translateY(-4px) scale(1.1);
+    opacity: 1;
+  }
+  70% {
+    transform: translateY(-2px) scale(1.05);
+    opacity: 0.9;
+  }
+  90% {
+    transform: translateY(-1px) scale(1.02);
+    opacity: 0.85;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+// Clean, simple animation for the new button
+@keyframes gentle-bounce {
+  0%, 20%, 53%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40%, 43% {
+    transform: translateY(-3px);
+  }
+  70% {
+    transform: translateY(-1px);
+  }
+}
+
+// More visible but clean animations
+@keyframes clean-pulse {
+  0%, 100% {
+    box-shadow: 
+      0 4px 20px rgba(0, 0, 0, 0.1),
+      0 0 0 0 rgba(255, 255, 255, 0.7);
+  }
+  50% {
+    box-shadow: 
+      0 6px 25px rgba(0, 0, 0, 0.15),
+      0 0 0 8px rgba(255, 255, 255, 0.1);
+  }
+}
+
+@keyframes visible-bounce {
+  0%, 20%, 53%, 80%, 100% {
+    transform: translateY(0);
+    opacity: 0.8;
+  }
+  40%, 43% {
+    transform: translateY(-8px);
+    opacity: 1;
+  }
+  70% {
+    transform: translateY(-4px);
+    opacity: 0.9;
+  }
+  90% {
+    transform: translateY(-2px);
+    opacity: 0.85;
+  }
+}
+
+// Clean breathing animation for CTA button
+@keyframes clean-breathing {
+  0%, 100% {
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+    transform: scale(1.02);
   }
 }
