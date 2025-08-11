@@ -140,7 +140,7 @@ $breakpoint-sm: 640px !default;
   
   &__scroll-indicator {
     position: absolute;
-    bottom: $spacing-8;
+    bottom: 30vh;
     left: 50%;
     transform: translateX(-50%);
     background: rgba(255, 255, 255, 0.15);
