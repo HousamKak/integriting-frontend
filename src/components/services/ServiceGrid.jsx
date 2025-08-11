@@ -5,6 +5,16 @@ import ServiceCard from './ServiceCard';
 import '../../styles/components/ServiceGrid.scss';
 
 const ServiceGrid = ({ services, loading, error }) => {
+  console.log('ServiceGrid: Received props:', { 
+    servicesCount: services?.length || 0, 
+    loading, 
+    error 
+  });
+  
+  if (services && services.length > 0) {
+    console.log('ServiceGrid: Services data:', services);
+  }
+  
   if (loading) return <div className="service-grid__loading">Loading services...</div>;
   if (error) return <div className="service-grid__error">{error}</div>;
 
