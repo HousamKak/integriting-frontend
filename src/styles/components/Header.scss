@@ -28,6 +28,17 @@
     z-index: $z-index-fixed + 1;
     transition: $transition-normal;
     
+    img {
+      display: block;
+      height: 70px;
+      width: auto;
+      transition: all 0.3s ease;
+      
+      .header--scrolled & {
+        height: 40px;
+      }
+    }
+    
     h1 {
       font-size: $font-size-2xl;
       margin-bottom: 0;

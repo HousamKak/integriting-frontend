@@ -108,7 +108,16 @@ const Header = () => {
       
       <div className="container header__container">
         <div className="header__logo">
-          <img src="/assets/logo/الاستقصائية_logo colored.svg" alt="Logo" />
+          <Link to="/" aria-label="Home">
+            <img
+              src={scrolled 
+                ? "/assets/logo/al-istiqsaiya-icon-blue-orange.svg" 
+                : "/assets/logo/al-istiqsaiya-logo-colored.svg"
+              }
+              alt="Logo"
+              className="header__logo-img"
+            />
+          </Link>
         </div>
 
         {/* Desktop Navigation */}
