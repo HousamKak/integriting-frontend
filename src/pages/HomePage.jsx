@@ -15,8 +15,11 @@ const HomePage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log('HomePage: useEffect triggered, fetching data...');
+    
     const fetchData = async () => {
       try {
+        console.log('HomePage: Starting API calls...');
         // Fetch data in parallel
         const [servicesData, newspaperData, seminarsData] = await Promise.all([
           getServices(),
@@ -24,10 +27,23 @@ const HomePage = () => {
           getUpcomingSeminars()
         ]);
         
+        console.log('HomePage: Services data received:', servicesData);
+        console.log('HomePage: Number of services:', servicesData?.length || 0);
+        if (servicesData && servicesData.length > 0) {
+          servicesData.forEach((service, index) => {
+            console.log(`HomePage Service ${index + 1}:`, {
+              id: service.id,
+              title: service.title,
+              icon: service.icon
+            });
+          });
+        }
+        
         setServices(servicesData);
         setLatestNewspaper(newspaperData);
         setUpcomingSeminars(seminarsData.slice(0, 3)); // Get first 3 upcoming seminars
         setLoading(false);
+        console.log('HomePage: All data loaded, loading set to false');
       } catch (error) {
         console.error('Error fetching home page data:', error);
         setLoading(false);
@@ -171,21 +187,21 @@ const HomePage = () => {
           
           <div className="values-grid">
             <div className="value-card">
-              <div className="value-card__icon">🔍</div>
-              <h3 className="value-card__title">Expertise</h3>
-              <p className="value-card__text">
-                Our team of specialists brings deep knowledge in governance, law, and compliance to help you navigate complex challenges.
-              </p>
-            </div>
-            
-            <div className="value-card">
               <div className="value-card__icon">⚖️</div>
               <h3 className="value-card__title">Integrity</h3>
               <p className="value-card__text">
                 We uphold the highest ethical standards in our work, ensuring transparency and honesty in every interaction.
               </p>
             </div>
-            
+
+            <div className="value-card">
+              <div className="value-card__icon">🔍</div>
+              <h3 className="value-card__title">Expertise</h3>
+              <p className="value-card__text">
+                Our team of specialists brings deep knowledge in governance, law, and compliance to help you navigate complex challenges.
+              </p>
+            </div>
+
             <div className="value-card">
               <div className="value-card__icon">🛡️</div>
               <h3 className="value-card__title">Protection</h3>
@@ -193,7 +209,7 @@ const HomePage = () => {
                 We are committed to safeguarding whistleblowers and creating secure environments for reporting misconduct.
               </p>
             </div>
-            
+
             <div className="value-card">
               <div className="value-card__icon">🌱</div>
               <h3 className="value-card__title">Sustainability</h3>
