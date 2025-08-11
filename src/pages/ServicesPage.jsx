@@ -26,28 +26,19 @@ const ServicesPage = () => {
 
   return (
     <div className="services-page">
-      <div className="services-hero">
+      <div className="services-header">
         <div className="container">
-          <div className="services-hero__content">
-            <h1 className="services-hero__title">Our Expertise, Your Peace of Mind</h1>
-            <p className="services-hero__subtitle">
-              We provide specialized services in governance, legal support, and compliance to help 
-              your organization navigate complex challenges and achieve sustainable success.
-            </p>
-          </div>
+          <h1 className="services-header__title">Our Services</h1>
+          <p className="services-header__subtitle">
+            Expert solutions in governance, legal support, and compliance to help your organization 
+            navigate complex challenges and achieve sustainable success.
+          </p>
         </div>
       </div>
       
-      <div className="container">
-        <div className="services-intro">
-          <p className="services-intro__text">
-            At Integriting, we combine deep expertise in governance, law, and business with a commitment 
-            to transparency and ethical practices. Our comprehensive range of services is designed to 
-            address your specific needs and provide lasting solutions.
-          </p>
-        </div>
-        
-        <ServiceGrid services={services} loading={loading} error={error} />
+      <div className="services-content">
+        <div className="container">
+          <ServiceGrid services={services} loading={loading} error={error} />
         
         <div className="services-approach">
           <h2 className="services-approach__title">Our Approach</h2>
@@ -95,6 +86,7 @@ const ServicesPage = () => {
             </p>
             <a href="mailto:info@integriting.com" className="services-cta__button">Contact Us</a>
           </div>
+        </div>
         </div>
       </div>
     </div>
