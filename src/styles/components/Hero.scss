@@ -1,130 +1,203 @@
 // src/styles/components/Hero.scss
 @import '../variables';
 
+// Fallback variables for missing values
+$border-radius-2xl: 1rem !default;
+$spacing-20: 5rem !default;
+$spacing-16: 4rem !default;
+$spacing-12: 3rem !default;
+$spacing-10: 2.5rem !default;
+$spacing-8: 2rem !default;
+$spacing-6: 1.5rem !default;
+$spacing-4: 1rem !default;
+$spacing-2: 0.5rem !default;
+$spacing-1: 0.25rem !default;
+$font-size-5xl: 3rem !default;
+$font-size-4xl: 2.25rem !default;
+$font-size-3xl: 1.875rem !default;
+$font-size-2xl: 1.5rem !default;
+$font-size-xl: 1.25rem !default;
+$font-size-lg: 1.125rem !default;
+$font-size-base: 1rem !default;
+$font-size-sm: 0.875rem !default;
+$font-weight-bold: 700 !default;
+$font-weight-medium: 500 !default;
+$border-radius-xl: 0.75rem !default;
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !default;
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !default;
+$transition-normal: all 0.3s ease !default;
+$breakpoint-lg: 1024px !default;
+$breakpoint-md: 768px !default;
+$breakpoint-sm: 640px !default;
+
+// Elegant hero section with sophisticated design
 .hero {
-  background-color: $primary-color;
-  color: $white;
-  padding: $spacing-16 0;
   position: relative;
-  overflow: hidden;
-  margin-top: 80px; // Account for fixed header with reduced padding
-  height: 100vh; // Make the hero section full viewport height
-  display: flex; // Center content vertically and horizontally
+  background: linear-gradient(135deg, 
+    rgba(45, 55, 72, 0.95) 0%, 
+    rgba(74, 85, 104, 0.98) 50%, 
+    rgba(45, 55, 72, 0.95) 100%
+  );
+  color: $white;
+  padding: $spacing-12 0 $spacing-16;
+  margin-bottom: 0;
+  margin-top: 80px;
+  height: 100vh;
+  display: flex;
   align-items: center;
-  justify-content: center;
-
-  @media (min-width: $breakpoint-md) {
-    padding: $spacing-20 0;
+  
+  @media (max-width: $breakpoint-md) {
+    min-height: 85vh;
+    padding: $spacing-10 0 $spacing-12;
   }
-
-  // Enhanced background overlay
+  
+  @media (max-width: $breakpoint-sm) {
+    min-height: 90vh;
+    padding: $spacing-8 0 $spacing-10;
+  }
+  
+  // Subtle animated background pattern
   &::before {
     content: '';
     position: absolute;
     top: 0;
+    left: 0;
     right: 0;
     bottom: 0;
-    left: 0;
-    background-image: linear-gradient(135deg, rgba($primary-color, 0.95) 0%, rgba($secondary-color, 0.95) 100%);
-    z-index: 1;
+    background: 
+      radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+      radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
+    animation: subtle-float 20s ease-in-out infinite;
   }
-
-  // Subtle pattern overlay - removed dependency on external asset
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-image: radial-gradient(circle at 10% 10%, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 20%);
-    background-size: 20px 20px;
-    opacity: 0.1;
-    z-index: 0;
-    animation: slowPan 120s linear infinite alternate; // Slow panning animation
-  }
-
-  &__content {
+  
+  .container {
     position: relative;
     z-index: 2;
-    max-width: 800px;
-    margin: 0 auto;
     text-align: center;
-    padding: 0 $spacing-4;
-    animation: fadeIn 1s ease-out; // Fade in animation
+    margin-top: -25vh;
   }
-
-  &__title {
-    font-size: $font-size-4xl;
-    font-weight: $font-weight-bold;
-    margin-bottom: $spacing-6;
-    line-height: 1.2;
-    font-family: $font-family-serif; // Ensure Playfair Display usage
-    color: $white;
-
-    @media (min-width: $breakpoint-md) {
-      font-size: $font-size-5xl;
-    }
-  }
-
-  &__subtitle {
-    font-size: $font-size-lg;
-    line-height: 1.6;
-    margin-bottom: $spacing-8;
-    color: rgba($white, 0.9);
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-
-    @media (min-width: $breakpoint-md) {
-      font-size: $font-size-xl;
-    }
-  }
-
-  &__cta {
-    margin-top: $spacing-6;
-    animation: fadeInUp 1s ease-out 0.5s both; // Animated entry with delay
-  }
-
-  &__button {
-    font-weight: $font-weight-bold;
-    padding: $spacing-3 $spacing-8;
-    font-size: $font-size-lg;
-    border-radius: $border-radius-lg;
-    box-shadow: 0 4px 14px rgba($accent-color, 0.4);
-    background-color: $accent-color;
-    color: $primary-color;
-    border: none;
+  
+  &__badge {
     display: inline-block;
-    text-decoration: none;
-    transition: $transition-normal;
-
+    background: rgba(255, 255, 255, 0.1);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    padding: $spacing-2 $spacing-6;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: $spacing-6;
+    color: rgba(255, 255, 255, 0.9);
+    animation: fade-in-up 0.8s ease-out 0.2s both;
+  }
+  
+  &__title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin-bottom: $spacing-6;
+    font-weight: 300;
+    color: $white;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    animation: fade-in-up 0.8s ease-out 0.4s both;
+    
+    // Elegant text styling
+    background: linear-gradient(135deg, #ffffff 0%, #f7fafc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    
+    // Subtle text shadow fallback
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    
+    span {
+      font-weight: 600;
+      background: linear-gradient(135deg, #e2e8f0 0%, #ffffff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  }
+  
+  &__subtitle {
+    font-size: clamp(1.125rem, 2.5vw, 1.375rem);
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    animation: fade-in-up 0.8s ease-out 0.6s both;
+  }
+  
+  &__scroll-indicator {
+    position: absolute;
+    bottom: -10rem;
+    left: 50%;
+    transform: translateX(-50%);
+    
+    // Gold background for the home page button
+    background: linear-gradient(135deg, #D4AF37 0%, #FFD700 50%, #D4AF37 100%);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    
+    // Elegant border to match the gold theme
+    border: 1px solid rgba(212, 175, 55, 0.8);
+    border-radius: 50px;
+    
+    // Modern typography
+    color: #1a202c;
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    
+    cursor: pointer;
+    padding: 16px 28px;
+    
+    // Smooth, natural transitions
+    transition: all 0.3s ease;
+    z-index: 10;
+    min-width: 180px;
+    text-align: center;
+    
+    // Gold shadow with gentle pulse animation
+    box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+    animation: gold-pulse 3s ease-in-out infinite;
+    
     &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba($accent-color, 0.6);
+      background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
+      color: #1a202c;
+      transform: translateX(-50%) translateY(-8px) scale(1.05);
+      box-shadow: 0 12px 35px rgba(212, 175, 55, 0.5);
+      animation: none; /* Stop pulse on hover */
     }
-
+    
     &:active {
-      transform: translateY(0);
-      box-shadow: 0 3px 10px rgba($accent-color, 0.4);
+      transform: translateX(-50%) translateY(-4px) scale(1.02);
+    }
+    
+    // Clean arrow with more visible bounce
+    &::after {
+      content: '↓';
+      display: block;
+      font-size: 18px;
+      margin-top: 6px;
+      opacity: 0.8;
+      animation: visible-bounce 2s ease-in-out infinite;
     }
   }
 }
 
-// Animation keyframes
-@keyframes fadeIn {
+// Animations
+@keyframes fade-in-up {
   from {
     opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
@@ -132,11 +205,43 @@
   }
 }
 
-@keyframes slowPan {
-  from {
-    background-position: 0% 0%;
+@keyframes subtle-float {
+  0%, 100% {
+    transform: translateY(0) scale(1);
   }
-  to {
-    background-position: 100% 100%;
+  50% {
+    transform: translateY(-10px) scale(1.02);
+  }
+}
+
+@keyframes gold-pulse {
+  0%, 100% {
+    box-shadow: 
+      0 4px 20px rgba(212, 175, 55, 0.3),
+      0 0 0 0 rgba(255, 215, 0, 0.7);
+  }
+  50% {
+    box-shadow: 
+      0 6px 25px rgba(212, 175, 55, 0.4),
+      0 0 0 8px rgba(255, 215, 0, 0.1);
+  }
+}
+
+@keyframes visible-bounce {
+  0%, 20%, 53%, 80%, 100% {
+    transform: translateY(0);
+    opacity: 0.8;
+  }
+  40%, 43% {
+    transform: translateY(-8px);
+    opacity: 1;
+  }
+  70% {
+    transform: translateY(-4px);
+    opacity: 0.9;
+  }
+  90% {
+    transform: translateY(-2px);
+    opacity: 0.85;
   }
 }
