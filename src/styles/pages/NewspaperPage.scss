@@ -20,11 +20,13 @@
   
   &__title {
     font-size: $font-size-4xl;
+    color: $white !important;
     margin-bottom: $spacing-4;
   }
   
   &__subtitle {
     font-size: $font-size-lg;
+    color: $white !important;
     opacity: 0.9;
     line-height: 1.6;
   }
