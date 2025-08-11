@@ -4,6 +4,7 @@
 
 .home-page {
   margin-top: 0; // Hero already has margin to account for header
+  overflow-x: hidden; // Prevent horizontal scrolling
 }
 
 .section-title {

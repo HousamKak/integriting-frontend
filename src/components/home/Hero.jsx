@@ -14,7 +14,6 @@ const Hero = () => {
   return (
     <section className="hero">
       <div className="container">
-        <div className="hero__badge">Professional Excellence</div>
         <h1 className="hero__title">
           Redefining <span>Governance</span> for a Sustainable Future
         </h1>
