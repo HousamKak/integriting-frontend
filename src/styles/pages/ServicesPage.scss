@@ -1,228 +1,530 @@
-
 // src/styles/pages/ServicesPage.scss
 @import '../variables';
 
+// Fallback variables for missing values
+$border-radius-2xl: 1rem !default;
+$spacing-20: 5rem !default;
+$spacing-16: 4rem !default;
+$spacing-12: 3rem !default;
+$spacing-10: 2.5rem !default;
+$spacing-8: 2rem !default;
+$spacing-6: 1.5rem !default;
+$spacing-4: 1rem !default;
+$spacing-2: 0.5rem !default;
+$spacing-1: 0.25rem !default;
+$font-size-5xl: 3rem !default;
+$font-size-4xl: 2.25rem !default;
+$font-size-3xl: 1.875rem !default;
+$font-size-2xl: 1.5rem !default;
+$font-size-xl: 1.25rem !default;
+$font-size-lg: 1.125rem !default;
+$font-size-base: 1rem !default;
+$font-size-sm: 0.875rem !default;
+$font-weight-bold: 700 !default;
+$font-weight-medium: 500 !default;
+$border-radius-xl: 0.75rem !default;
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !default;
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !default;
+$transition-normal: all 0.3s ease !default;
+$breakpoint-lg: 1024px !default;
+$breakpoint-md: 768px !default;
+$breakpoint-sm: 640px !default;
+
 .services-page {
-  margin-top: 80px; // Account for header
+  margin-top: 80px;
+  overflow-x: hidden;
 }
 
+// Elegant hero section with sophisticated design
 .services-header {
-  background: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
+  position: relative;
+  background: linear-gradient(135deg, 
+    rgba(45, 55, 72, 0.95) 0%, 
+    rgba(74, 85, 104, 0.98) 50%, 
+    rgba(45, 55, 72, 0.95) 100%
+  );
   color: $white;
-  padding: $spacing-12 0;
+  padding: $spacing-12 0 $spacing-16;
   margin-bottom: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  
+  @media (max-width: $breakpoint-md) {
+    min-height: 85vh;
+    padding: $spacing-10 0 $spacing-12;
+  }
+  
+  @media (max-width: $breakpoint-sm) {
+    min-height: 90vh;
+    padding: $spacing-8 0 $spacing-10;
+  }
+  
+  // Subtle animated background pattern
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+      radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
+    animation: subtle-float 20s ease-in-out infinite;
+  }
   
   .container {
+    position: relative;
+    z-index: 2;
     text-align: center;
+    margin-top: -25vh;
+  
+  }
+  
+  &__badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.1);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    padding: $spacing-2 $spacing-6;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: $spacing-6;
+    color: rgba(255, 255, 255, 0.9);
+    animation: fade-in-up 0.8s ease-out 0.2s both;
   }
   
   &__title {
-    font-size: $font-size-4xl;
+    font-size: clamp(2.5rem, 5vw, 4rem);
     margin-bottom: $spacing-6;
-    font-weight: $font-weight-bold;
+    font-weight: 300;
     color: $white;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    animation: fade-in-up 0.8s ease-out 0.4s both;
     
-    @media (min-width: $breakpoint-md) {
-      font-size: $font-size-5xl;
+    // Elegant text styling
+    background: linear-gradient(135deg, #ffffff 0%, #f7fafc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    
+    // Subtle text shadow fallback
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    
+    span {
+      font-weight: 600;
+      background: linear-gradient(135deg, #e2e8f0 0%, #ffffff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
   }
   
   &__subtitle {
-    font-size: $font-size-lg;
-    max-width: 600px;
+    font-size: clamp(1.125rem, 2.5vw, 1.375rem);
+    max-width: 700px;
     margin: 0 auto;
-    line-height: 1.6;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    animation: fade-in-up 0.8s ease-out 0.6s both;
+  }
+  
+  &__scroll-indicator {
+    position: absolute;
+    bottom: $spacing-8;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.15);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50px;
     color: $white;
-    opacity: 1;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    padding: $spacing-3 $spacing-6;
+    font-family: inherit;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: pulse-glow 3s ease-in-out infinite;
+    z-index: 10;
+    min-width: 180px;
+    text-align: center;
     
-    @media (min-width: $breakpoint-md) {
-      font-size: $font-size-xl;
+    &:hover {
+      background: rgba(255, 255, 255, 0.25);
+      border-color: rgba(255, 255, 255, 0.6);
+      color: $white;
+      transform: translateX(-50%) translateY(-8px) scale(1.05);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    }
+    
+    &:active {
+      transform: translateX(-50%) translateY(-4px) scale(1.02);
+    }
+    
+    // Remove the duplicate content
+    &::after {
+      content: '↓';
+      display: block;
+      font-size: 1.2rem;
+      margin-top: $spacing-1;
+      animation: bounce-arrow 2s ease-in-out infinite;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     }
   }
 }
 
+// Main content area with better spacing
 .services-content {
-  background-color: $white;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
   min-height: calc(100vh - 200px);
   padding: $spacing-12 0;
+  position: relative;
 }
 
-.services-hero {
-  background-color: $primary-color;
-  padding: $spacing-16 0;
-  
-  &__content {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
-  }
-  
-  &__title {
-    font-size: $font-size-4xl;
-    margin-bottom: $spacing-4;
-    
-    @media (min-width: $breakpoint-md) {
-      font-size: $font-size-5xl;
-    }
-  }
-  
-  &__subtitle {
-    font-size: $font-size-lg;
-    opacity: 0.9;
-    line-height: 1.6;
-    
-    @media (min-width: $breakpoint-md) {
-      font-size: $font-size-xl;
-    }
-  }
-}
-
-.services-hero__subtitle{
-  color: white;
-}
+// Refined intro section
 .services-intro {
-  padding: $spacing-8 0;
+  padding: 0 0 $spacing-12;
   max-width: 800px;
   margin: 0 auto;
   text-align: center;
   
   &__text {
-    font-size: $font-size-lg;
-    line-height: 1.6;
+    font-size: $font-size-xl;
+    line-height: 1.8;
     color: $dark-gray;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    opacity: 0.9;
   }
 }
 
+// Sophisticated approach section
 .services-approach {
-  background-color: $light-gray;
-  border-radius: $border-radius-xl;
-  margin: $spacing-8 0 $spacing-12;
-  padding: $spacing-12 $spacing-4;
+  background: $white;
+  border-radius: $border-radius-2xl;
+  margin: $spacing-12 0 $spacing-16;
+  padding: $spacing-16 $spacing-4;
+  box-shadow: 
+    0 20px 25px -5px rgba(0, 0, 0, 0.03),
+    0 10px 10px -5px rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  position: relative;
+  overflow: hidden;
+  
+  // Subtle background pattern
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(circle at 0% 0%, rgba(99, 102, 241, 0.02) 0%, transparent 50%),
+      radial-gradient(circle at 100% 100%, rgba(139, 92, 246, 0.02) 0%, transparent 50%);
+    pointer-events: none;
+  }
   
   @media (min-width: $breakpoint-md) {
-    padding: $spacing-16 $spacing-6;
+    padding: $spacing-20 $spacing-8;
   }
   
   &__title {
     text-align: center;
-    margin-bottom: $spacing-10;
+    margin-bottom: $spacing-12;
     color: $primary-color;
-    font-size: $font-size-3xl;
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    font-weight: 300;
+    letter-spacing: -0.02em;
     position: relative;
+    z-index: 2;
     
     &::after {
       content: '';
       position: absolute;
-      bottom: -$spacing-4;
+      bottom: -$spacing-6;
       left: 50%;
       transform: translateX(-50%);
-      width: 80px;
-      height: 3px;
-      background-color: $accent-color;
-      border-radius: 3px;
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent 0%, $accent-color 50%, transparent 100%);
+      border-radius: 2px;
     }
   }
   
   &__grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: $spacing-6;
+    gap: $spacing-8;
+    position: relative;
+    z-index: 2;
     
-    @media (min-width: $breakpoint-md) {
+    @media (min-width: $breakpoint-sm) {
       grid-template-columns: repeat(2, 1fr);
     }
     
     @media (min-width: $breakpoint-lg) {
       grid-template-columns: repeat(4, 1fr);
+      gap: $spacing-6;
     }
   }
 }
 
+// Elegant approach cards
 .approach-card {
-  background-color: $white;
-  border-radius: $border-radius-lg;
-  box-shadow: $shadow-md;
-  padding: $spacing-6;
+  background: $white;
+  border-radius: $border-radius-xl;
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.05),
+    0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(226, 232, 240, 0.6);
+  padding: $spacing-8;
   text-align: center;
-  transition: $transition-normal;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  
+  // Hover effect background
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.02) 0%, rgba(139, 92, 246, 0.02) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
   
   &:hover {
-    transform: translateY(-4px);
-    box-shadow: $shadow-lg;
+    transform: translateY(-8px);
+    box-shadow: 
+      0 20px 25px -5px rgba(0, 0, 0, 0.08),
+      0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    border-color: rgba(99, 102, 241, 0.2);
+    
+    &::before {
+      opacity: 1;
+    }
   }
   
   &__icon {
     font-size: 2.5rem;
-    margin-bottom: $spacing-4;
+    margin-bottom: $spacing-6;
+    position: relative;
+    z-index: 2;
+    display: inline-block;
+    transform: scale(1);
+    transition: transform 0.3s ease;
+    
+    .approach-card:hover & {
+      transform: scale(1.1);
+    }
   }
   
   &__title {
     font-size: $font-size-xl;
-    margin-bottom: $spacing-3;
+    margin-bottom: $spacing-4;
     color: $primary-color;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    position: relative;
+    z-index: 2;
   }
   
   &__text {
     color: $dark-gray;
-    line-height: 1.6;
+    line-height: 1.7;
     margin-bottom: 0;
+    font-size: $font-size-base;
+    opacity: 0.9;
+    position: relative;
+    z-index: 2;
   }
 }
 
+// Sophisticated CTA section
 .services-cta {
   padding: $spacing-8 0 0;
   
   &__content {
-    background: linear-gradient(135deg, $light-blue 0%, lighten($light-blue, 2%) 100%);
-    border-radius: $border-radius-xl;
-    border: 2px solid lighten($primary-color, 40%);
-    padding: $spacing-10 $spacing-4;
+    background: linear-gradient(135deg, 
+      rgba(99, 102, 241, 0.06) 0%, 
+      rgba(139, 92, 246, 0.04) 50%,
+      rgba(99, 102, 241, 0.06) 100%
+    );
+    border-radius: $border-radius-2xl;
+    border: 1px solid rgba(99, 102, 241, 0.1);
+    padding: $spacing-12 $spacing-6;
     text-align: center;
     max-width: 800px;
     margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    
+    // Subtle background pattern
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 30% 70%, rgba(255, 255, 255, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.3) 0%, transparent 50%);
+      pointer-events: none;
+    }
     
     @media (min-width: $breakpoint-md) {
-      padding: $spacing-12 $spacing-6;
+      padding: $spacing-16 $spacing-8;
     }
   }
   
   &__title {
-    font-size: $font-size-2xl;
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
     color: $primary-color;
-    margin-bottom: $spacing-4;
-    font-weight: $font-weight-bold;
+    margin-bottom: $spacing-6;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    position: relative;
+    z-index: 2;
     
-    @media (min-width: $breakpoint-md) {
-      font-size: $font-size-3xl;
+    span {
+      font-weight: 600;
     }
   }
   
   &__text {
     font-size: $font-size-lg;
-    color: $dark-gray;
-    margin-bottom: $spacing-6;
-    line-height: 1.6;
+    color: rgba(45, 55, 72, 0.8);
+    margin-bottom: $spacing-8;
+    line-height: 1.7;
+    font-weight: 400;
+    position: relative;
+    z-index: 2;
   }
   
   &__button {
-    display: inline-block;
-    padding: $spacing-4 $spacing-8;
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-2;
+    padding: $spacing-4 $spacing-10;
     background: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
     color: $white;
     font-weight: $font-weight-medium;
     font-size: $font-size-lg;
-    border-radius: $border-radius-lg;
+    border-radius: $border-radius-xl;
     text-decoration: none;
-    transition: $transition-normal;
-    box-shadow: $shadow-md;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 
+      0 10px 15px -3px rgba(99, 102, 241, 0.2),
+      0 4px 6px -2px rgba(99, 102, 241, 0.1);
+    position: relative;
+    z-index: 2;
+    letter-spacing: 0.01em;
+    
+    &::after {
+      content: '→';
+      margin-left: $spacing-1;
+      transition: transform 0.3s ease;
+    }
     
     &:hover {
       background: linear-gradient(135deg, darken($primary-color, 5%) 0%, darken($secondary-color, 5%) 100%);
       color: $white;
       transform: translateY(-2px);
-      box-shadow: $shadow-lg;
+      box-shadow: 
+        0 20px 25px -5px rgba(99, 102, 241, 0.25),
+        0 10px 10px -5px rgba(99, 102, 241, 0.15);
+      
+      &::after {
+        transform: translateX(4px);
+      }
     }
+  }
+}
+
+// Animations
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes subtle-float {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-10px) scale(1.02);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 
+      0 0 10px rgba(255, 255, 255, 0.4), 
+      0 0 20px rgba(255, 255, 255, 0.3), 
+      0 0 30px rgba(255, 255, 255, 0.2),
+      0 0 40px rgba(255, 255, 255, 0.1);
+  }
+  50% {
+    box-shadow: 
+      0 0 15px rgba(255, 255, 255, 0.6), 
+      0 0 30px rgba(255, 255, 255, 0.5), 
+      0 0 45px rgba(255, 255, 255, 0.4),
+      0 0 60px rgba(255, 255, 255, 0.3);
+  }
+}
+
+@keyframes bounce-arrow {
+  0%, 20%, 53%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40%, 43% {
+    transform: translateY(-6px);
+  }
+  70% {
+    transform: translateY(-3px);
+  }
+  90% {
+    transform: translateY(-1px);
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 53%, 80%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  40%, 43% {
+    transform: translateX(-50%) translateY(-8px);
+  }
+  70% {
+    transform: translateX(-50%) translateY(-4px);
+  }
+  90% {
+    transform: translateX(-50%) translateY(-2px);
   }
 }
