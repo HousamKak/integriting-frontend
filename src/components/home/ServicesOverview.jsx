@@ -39,7 +39,14 @@ const ServicesOverview = () => {
       'whistleblower': '/assets/icons/whistleblower-icon.svg',
     };
     
-    return iconMap[iconName] || '/assets/icons/default-icon.svg';
+    const sanitizedIconName = iconName?.toLowerCase().trim();
+    console.log(`Icon name: ${iconName}, Sanitized: ${sanitizedIconName}`);
+    if (!iconMap[sanitizedIconName]) {
+      console.warn(`Icon not found for: ${sanitizedIconName}`);
+    }
+    const iconPath = iconMap[sanitizedIconName] || '/assets/icons/default-icon.svg';
+    console.log(`Resolved icon path: ${iconPath}`);
+    return iconPath;
   };
 
   return (
@@ -51,7 +58,11 @@ const ServicesOverview = () => {
           {services.map((service) => (
             <div key={service.id} className="service-card">
               <div className="service-card__icon">
-                <img src={getIconPath(service.icon)} alt={service.title} />
+                <img 
+                  src={getIconPath(service.icon)} 
+                  alt={service.title} 
+                  onError={() => console.error(`Failed to load icon for service: ${service.title}`)}
+                />
               </div>
               <h3 className="service-card__title">{service.title}</h3>
               <p className="service-card__description">
