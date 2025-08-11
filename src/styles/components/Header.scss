@@ -7,14 +7,14 @@
   left: 0;
   width: 100%;
   z-index: $z-index-fixed;
-  padding: $spacing-4 0;
+  padding: $spacing-2 0;
   transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
   background-color: rgba($white, 0.97);
   border-bottom: 1px solid transparent;
   
   &--scrolled {
     box-shadow: $shadow-md;
-    padding: $spacing-2 0;
+    padding: $spacing-1 0;
     border-bottom-color: rgba($light-gray, 0.5);
   }
   
@@ -27,15 +27,17 @@
   &__logo {
     z-index: $z-index-fixed + 1;
     transition: $transition-normal;
+    display: flex;
+    align-items: center;
     
     img {
       display: block;
-      height: 70px;
+      height: 60px;
       width: auto;
       transition: all 0.3s ease;
       
       .header--scrolled & {
-        height: 40px;
+        height: 35px;
       }
     }
     
