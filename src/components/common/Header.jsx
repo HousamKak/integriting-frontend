@@ -108,9 +108,7 @@ const Header = () => {
       
       <div className="container header__container">
         <div className="header__logo">
-          <Link to="/" aria-label="Integriting - Home">
-            <h1>Integriting</h1>
-          </Link>
+          <img src="/assets/logo/الاستقصائية_logo colored.svg" alt="Logo" />
         </div>
 
         {/* Desktop Navigation */}
