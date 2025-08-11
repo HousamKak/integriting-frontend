@@ -136,11 +136,39 @@
   &__hotline {
     display: flex;
     align-items: center;
-    background-color: $blue-medium;
-    color: $white;
+    // Gold gradient background matching the "Explore Our Mission" button
+    background: linear-gradient(135deg, #D4AF37 0%, #FFD700 50%, #D4AF37 100%);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    
+    // Dark text for contrast on gold background
+    color: #1a202c;
     padding: $spacing-4;
-    border-radius: $border-radius-md;
+    border-radius: 50px; // More rounded like the hero button
     margin-bottom: $spacing-4;
+    
+    // Elegant border to match the gold theme
+    border: 1px solid rgba(212, 175, 55, 0.8);
+    
+    // Gold shadow with gentle pulse animation
+    box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+    animation: gold-pulse 3s ease-in-out infinite;
+    
+    // Smooth transitions
+    transition: all 0.3s ease;
+    cursor: pointer;
+    
+    &:hover {
+      background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
+      color: #1a202c;
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 12px 35px rgba(212, 175, 55, 0.5);
+      animation: none; /* Stop pulse on hover */
+    }
+    
+    &:active {
+      transform: translateY(-2px) scale(1.01);
+    }
   }
   
   &__hotline-icon {
@@ -257,5 +285,19 @@
     color: $dark-gray;
     line-height: 1.6;
     margin-bottom: 0;
+  }
+}
+
+// Animation for the gold-themed hotline section
+@keyframes gold-pulse {
+  0%, 100% {
+    box-shadow: 
+      0 4px 20px rgba(212, 175, 55, 0.3),
+      0 0 0 0 rgba(255, 215, 0, 0.7);
+  }
+  50% {
+    box-shadow: 
+      0 6px 25px rgba(212, 175, 55, 0.4),
+      0 0 0 8px rgba(255, 215, 0, 0.1);
   }
 }
