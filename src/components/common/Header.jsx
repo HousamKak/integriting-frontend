@@ -14,8 +14,8 @@ const Header = () => {
   // Navigation items
   const navItems = [
     { path: '/', label: 'Home', exact: true },
-    { path: '/publications', label: 'Publications' },
     { path: '/services', label: 'Services' },
+    { path: '/publications', label: 'Publications' },
     { path: '/whistleblower', label: 'Whistleblower Protection' },
     { path: '/seminars', label: 'Seminars' },
     { path: '/newspaper', label: 'Journal' },
