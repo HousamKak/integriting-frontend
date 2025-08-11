@@ -8,11 +8,15 @@
   position: relative;
   overflow: hidden;
   margin-top: 80px; // Account for fixed header
-  
+  height: 100vh; // Make the hero section full viewport height
+  display: flex; // Center content vertically and horizontally
+  align-items: center;
+  justify-content: center;
+
   @media (min-width: $breakpoint-md) {
     padding: $spacing-20 0;
   }
-  
+
   // Enhanced background overlay
   &::before {
     content: '';
@@ -24,7 +28,7 @@
     background-image: linear-gradient(135deg, rgba($primary-color, 0.95) 0%, rgba($secondary-color, 0.95) 100%);
     z-index: 1;
   }
-  
+
   // Subtle pattern overlay - removed dependency on external asset
   &::after {
     content: '';
@@ -39,7 +43,7 @@
     z-index: 0;
     animation: slowPan 120s linear infinite alternate; // Slow panning animation
   }
-  
+
   &__content {
     position: relative;
     z-index: 2;
@@ -49,7 +53,7 @@
     padding: 0 $spacing-4;
     animation: fadeIn 1s ease-out; // Fade in animation
   }
-  
+
   &__title {
     font-size: $font-size-4xl;
     font-weight: $font-weight-bold;
@@ -57,12 +61,12 @@
     line-height: 1.2;
     font-family: $font-family-serif; // Ensure Playfair Display usage
     color: $white;
-    
+
     @media (min-width: $breakpoint-md) {
       font-size: $font-size-5xl;
     }
   }
-  
+
   &__subtitle {
     font-size: $font-size-lg;
     line-height: 1.6;
@@ -71,17 +75,17 @@
     max-width: 700px;
     margin-left: auto;
     margin-right: auto;
-    
+
     @media (min-width: $breakpoint-md) {
       font-size: $font-size-xl;
     }
   }
-  
+
   &__cta {
     margin-top: $spacing-6;
     animation: fadeInUp 1s ease-out 0.5s both; // Animated entry with delay
   }
-  
+
   &__button {
     font-weight: $font-weight-bold;
     padding: $spacing-3 $spacing-8;
@@ -94,12 +98,12 @@
     display: inline-block;
     text-decoration: none;
     transition: $transition-normal;
-    
+
     &:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba($accent-color, 0.6);
     }
-    
+
     &:active {
       transform: translateY(0);
       box-shadow: 0 3px 10px rgba($accent-color, 0.4);
