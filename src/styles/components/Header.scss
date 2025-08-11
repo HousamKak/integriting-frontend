@@ -130,6 +130,69 @@
         }
       }
     }
+    
+    // Premium glow effect for whistleblower
+    &--premium {
+      a {
+        position: relative;
+        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 25%, #a855f7 50%, #d946ef 75%, #ec4899 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: $font-weight-semibold;
+        overflow: hidden;
+        
+        // Animated shimmer effect
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(
+            90deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.4) 50%,
+            transparent 100%
+          );
+          animation: shimmer-shine 3s ease-in-out infinite;
+          z-index: 1;
+          pointer-events: none;
+        }
+        
+        &::after {
+          background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+          height: 3px;
+          box-shadow: 0 0 10px rgba(139, 92, 246, 0.6), 0 0 20px rgba(168, 85, 247, 0.4);
+        }
+        
+        &:hover, &:focus {
+          &::before {
+            animation-duration: 1.5s; // Faster shimmer on hover
+          }
+          
+          &::after {
+            box-shadow: 
+              0 0 15px rgba(139, 92, 246, 0.9), 
+              0 0 30px rgba(168, 85, 247, 0.6),
+              0 0 45px rgba(217, 70, 239, 0.3);
+          }
+        }
+      }
+      
+      &.header__nav-item--active {
+        a {
+          &::after {
+            width: 100%;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+            box-shadow: 
+              0 0 12px rgba(139, 92, 246, 0.7), 
+              0 0 24px rgba(168, 85, 247, 0.5);
+          }
+        }
+      }
+    }
   }
   
   &__login-button {
@@ -409,6 +472,44 @@
         font-weight: $font-weight-semibold;
       }
     }
+    
+    // Premium glow effect for whistleblower (mobile)
+    &--premium {
+      a {
+        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 25%, #a855f7 50%, #d946ef 75%, #ec4899 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: $font-weight-semibold;
+        position: relative;
+        overflow: hidden;
+        
+        // Mobile shimmer effect
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(
+            90deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.3) 50%,
+            transparent 100%
+          );
+          animation: shimmer-shine 3s ease-in-out infinite;
+          z-index: 1;
+          pointer-events: none;
+        }
+        
+        &:hover, &:focus {
+          &::before {
+            animation-duration: 1.5s; // Faster shimmer on touch/hover
+          }
+        }
+      }
+    }
   }
   
   &__mobile-nav-login {
@@ -551,5 +652,20 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+// Shimmer shine animation for premium effect
+@keyframes shimmer-shine {
+  0% {
+    left: -100%;
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
   }
 }

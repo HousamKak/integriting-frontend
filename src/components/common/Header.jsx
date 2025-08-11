@@ -126,7 +126,7 @@ const Header = () => {
             {navItems.map((item) => (
               <li 
                 key={item.path} 
-                className={`header__nav-item ${isActive(item.path, item.exact) ? 'header__nav-item--active' : ''}`}
+                className={`header__nav-item ${isActive(item.path, item.exact) ? 'header__nav-item--active' : ''} ${item.path === '/whistleblower' ? 'header__nav-item--premium' : ''}`}
               >
                 <Link to={item.path} aria-current={isActive(item.path, item.exact) ? 'page' : undefined}>
                   {item.label}
@@ -195,7 +195,7 @@ const Header = () => {
             {navItems.map((item) => (
               <li 
                 key={item.path} 
-                className={`header__mobile-nav-item ${isActive(item.path, item.exact) ? 'header__mobile-nav-item--active' : ''}`}
+                className={`header__mobile-nav-item ${isActive(item.path, item.exact) ? 'header__mobile-nav-item--active' : ''} ${item.path === '/whistleblower' ? 'header__mobile-nav-item--premium' : ''}`}
               >
                 <Link 
                   to={item.path}
