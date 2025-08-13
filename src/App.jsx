@@ -1,5 +1,5 @@
 // src/App.jsx
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import routes from './routes';
@@ -8,10 +8,22 @@ import routes from './routes';
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
 
+// Import services
+import { initAnalytics } from './services/analyticsService';
+
 // Import styles
 import './styles/global.scss';
 
 const App = () => {
+  // Set the app title from environment variables and initialize analytics
+  useEffect(() => {
+    const appTitle = import.meta.env.VITE_APP_TITLE || 'Integriting';
+    document.title = appTitle;
+    
+    // Initialize analytics if enabled
+    initAnalytics();
+  }, []);
+
   return (
     <AuthProvider>
       <BrowserRouter>

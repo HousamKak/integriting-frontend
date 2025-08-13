@@ -102,20 +102,22 @@ npm install
 yarn install
 ```
 
-3. Create a `.env` file in the root directory with the following variables:
-```
-REACT_APP_API_URL=http://localhost:5000/api
-REACT_APP_AUTH_STORAGE_KEY=auth_token
-```
+3. **Environment Configuration**: 
+   Environment variables are managed centrally in the `integriting-deployment` folder. The frontend gets its environment variables through Docker containers. For development, use the deployment environment files:
+   - `.env.development` for development
+   - `.env.staging` for staging
+   - `.env.production` for production
 
 4. Start the development server
 ```bash
-npm start
+npm run dev
 # or
-yarn start
+yarn dev
 ```
 
 5. The application will open in your browser at [http://localhost:3000](http://localhost:3000)
+
+> **Note**: For local development without Docker, you may need to set environment variables manually or use the deployment scripts from the `integriting-deployment` folder.
 
 ## 🧩 Component Architecture
 

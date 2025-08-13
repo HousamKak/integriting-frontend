@@ -1,6 +1,9 @@
 // src/services/api.js
 import axios from 'axios';
 
+// Get the auth storage key from environment
+const AUTH_STORAGE_KEY = import.meta.env.VITE_AUTH_STORAGE_KEY || 'auth_token';
+
 // Create API instance with base URL
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || '/api',
@@ -12,7 +15,7 @@ const api = axios.create({
 // Intercept requests to add auth token
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('auth_token');
+    const token = localStorage.getItem(AUTH_STORAGE_KEY);
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -29,7 +32,7 @@ api.interceptors.response.use(
       // Handle unauthorized errors
       if (error.response.status === 401) {
         // If the API returns a 401 (unauthorized), clear auth token and redirect to login
-        localStorage.removeItem('auth_token');
+        localStorage.removeItem(AUTH_STORAGE_KEY);
         localStorage.removeItem('user');
         
         // Only redirect if we're not already on the login page

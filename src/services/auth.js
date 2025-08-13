@@ -1,6 +1,9 @@
 // src/services/auth.js
 import api from './api';
 
+// Get the auth storage key from environment
+const AUTH_STORAGE_KEY = import.meta.env.VITE_AUTH_STORAGE_KEY || 'auth_token';
+
 /**
  * Log in a user with email and password
  * @param {Object} credentials - Object containing email and password
@@ -11,7 +14,7 @@ export const login = async (credentials) => {
     const response = await api.post('/auth/login', credentials);
     if (response.data.token) {
       // Store auth token and user data in localStorage
-      localStorage.setItem('auth_token', response.data.token);
+      localStorage.setItem(AUTH_STORAGE_KEY, response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
     }
     return response.data;
@@ -25,7 +28,7 @@ export const login = async (credentials) => {
  * Log out the current user
  */
 export const logout = () => {
-  localStorage.removeItem('auth_token');
+  localStorage.removeItem(AUTH_STORAGE_KEY);
   localStorage.removeItem('user');
   window.location.href = '/login';
 };
@@ -64,7 +67,7 @@ export const changePassword = async (passwordData) => {
  * @returns {boolean} True if authenticated, false otherwise
  */
 export const isAuthenticated = () => {
-  return !!localStorage.getItem('auth_token');
+  return !!localStorage.getItem(AUTH_STORAGE_KEY);
 };
 
 /**
