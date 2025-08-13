@@ -112,7 +112,7 @@ const Header = () => {
             <img
               src={scrolled 
                 ? "/assets/logo/al-istiqsaiya-icon-blue-orange.svg" 
-                : "/assets/logo/al-istiqsaiya-logo-colored.svg"
+                : "/assets/logo/al-istiqsaiya-icon-en-only.svg"
               }
               alt="Logo"
               className="header__logo-img"
