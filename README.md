@@ -1,53 +1,75 @@
 # Integriting Frontend
 
-## Overview
-Integriting is a professional platform that merges governance, law, and business expertise with a focus on sustainable development, legal insight, transparency, and whistleblower protection. This frontend application provides a modern, responsive user interface for both public users and administrators.
+A modern React frontend application built with Vite and configured for deployment with Nginx.
 
-## 🚀 Features
+## 🚀 Quick Start
 
-- **Public-facing Website**
-  - Company services showcase
-  - Publication library and downloads
-  - E-Newspaper/Journal system
-  - Seminar and event listings
-  - Whistleblower protection portal
+### Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn
+- Docker (for containerized deployment)
 
-- **Admin Dashboard**
-  - Content management system
-  - Publication management
-  - Service management
-  - Seminar scheduling
-  - E-Newspaper/Journal management
-  - Whistleblower reports handling
+### Development
 
-## 🛠️ Technologies Used
+1. **Clone and install dependencies:**
+   ```bash
+   git clone <repository-url>
+   cd integriting-frontend
+   npm install
+   ```
 
-- **React.js** - UI library
-- **React Router** - Navigation and routing
-- **SCSS** - Styling with Sass preprocessor
-- **Axios** - API client for backend communication
-- **Context API** - State management
-- **JWT Authentication** - Secure admin access
+2. **Start development server:**
+   ```bash
+   npm run dev
+   ```
+   
+   Or use the convenience script:
+   ```bash
+   # Linux/macOS
+   ./dev.sh
+   
+   # Windows
+   dev.bat
+   ```
 
-## 🏗️ Project Structure
+3. **Open your browser:**
+   Navigate to `http://localhost:3000`
 
+### Building for Production
+
+```bash
+npm run build
 ```
-/src
-  /components           # Reusable UI components
-    /admin              # Admin-specific components
-    /common             # Shared components (Button, Header, Footer)
-    /home               # Homepage components
-    /newspaper          # Journal/newspaper components
-    /publications       # Publication-related components
-    /seminars           # Seminar and event components
-    /services           # Service showcase components
-    /whistleblower      # Whistleblower protection components
-  /contexts             # React contexts for state management
-  /pages                # Page components
-    /admin              # Admin dashboard pages
-  /services             # API service methods
-  /styles               # SCSS stylesheets
-    /components         # Component-specific styles
+
+This creates an optimized build in the `dist/` directory.
+
+### Preview Production Build
+
+```bash
+npm run preview
+```
+
+## 🐳 Docker Deployment
+
+### Build and run with Docker:
+
+```bash
+# Build the image
+docker build -t integriting-frontend .
+
+# Run the container
+docker run -p 80:80 integriting-frontend
+```
+
+### Using Docker Compose:
+
+```bash
+# Build and start all services
+docker-compose up --build
+
+# Run in background
+docker-compose up -d
+```
     /pages              # Page-specific styles
   /utils                # Utility functions
   App.jsx               # Main application component
