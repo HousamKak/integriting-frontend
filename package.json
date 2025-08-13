@@ -1,13 +1,13 @@
 {
     "name": "integriting-frontend",
     "version": "1.0.0",
+    "type": "module",
     "description": "Frontend for the Integriting website",
-    "main": "index.js",
     "scripts": {
-        "start": "react-scripts start",
-        "build": "react-scripts build",
-        "test": "react-scripts test",
-        "eject": "react-scripts eject"
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview",
+        "serve": "vite preview --port 3000"
     },
     "keywords": [],
     "author": "",
@@ -18,12 +18,17 @@
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-router-dom": "^6.30.0",
-        "react-scripts": "5.0.1",
         "sass": "^1.86.0"
     },
     "devDependencies": {
+        "@types/react": "^18.2.79",
+        "@types/react-dom": "^18.2.25",
+        "@vitejs/plugin-react": "^4.2.1",
         "eslint": "^8.50.0",
-        "eslint-plugin-react": "^7.33.0"
+        "eslint-plugin-react": "^7.33.0",
+        "eslint-plugin-react-hooks": "^4.6.0",
+        "eslint-plugin-react-refresh": "^0.4.6",
+        "vite": "^5.2.8"
     },
     "browserslist": {
         "production": [
