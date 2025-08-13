@@ -18,21 +18,26 @@ A modern React frontend application built with Vite and configured for deploymen
    npm install
    ```
 
-2. **Start development server:**
+2. **Environment Configuration:**
+   Environment variables are managed centrally in the `integriting-deployment` folder. For development:
+   
+   ```bash
+   cd ../integriting-deployment
+   start-dev.bat
+   ```
+
+3. **Manual Development (without Docker):**
    ```bash
    npm run dev
    ```
    
    Or use the convenience script:
    ```bash
-   # Linux/macOS
-   ./dev.sh
-   
    # Windows
    dev.bat
    ```
 
-3. **Open your browser:**
+4. **Open your browser:**
    Navigate to `http://localhost:3000`
 
 ### Building for Production
@@ -51,7 +56,16 @@ npm run preview
 
 ## 🐳 Docker Deployment
 
-### Build and run with Docker:
+### Using Docker Compose (Recommended):
+
+```bash
+cd ../integriting-deployment
+start-dev.bat    # Development
+start-staging.bat # Staging
+start-prod.bat   # Production
+```
+
+### Manual Docker Build:
 
 ```bash
 # Build the image
@@ -61,17 +75,48 @@ docker build -t integriting-frontend .
 docker run -p 80:80 integriting-frontend
 ```
 
-### Using Docker Compose:
+## 📁 Project Structure
 
-```bash
-# Build and start all services
-docker-compose up --build
-
-# Run in background
-docker-compose up -d
 ```
+integriting-frontend/
+├── src/
+  /components           # Reusable UI components
+    /admin              # Admin-specific components
+    /common             # Shared components (Button, Header, Footer)
+    /home               # Homepage components
+    /newspaper          # E-journal components
+    /publications       # Publication components
+    /seminars           # Seminar components
+    /services           # Service components
+    /whistleblower      # Whistleblower reporting components
+  /contexts             # React context providers
+    AuthContext.jsx     # Authentication state management
+    ThemeContext.jsx    # Theme management
+  /pages                # Route-level page components
+    HomePage.jsx        # Landing page
+    LoginPage.jsx       # Authentication page
+    NewspaperPage.jsx   # E-journal page
+    PublicationDetailPage.jsx # Individual publication
+    PublicationsPage.jsx # Publications listing
+    SeminarsPage.jsx    # Seminars page
+    ServiceDetailPage.jsx # Individual service
+    ServicesPage.jsx    # Services listing
+    WhistleblowerPage.jsx # Anonymous reporting
+    /admin              # Admin panel pages
+  /services             # API service modules
+    analyticsService.js # Analytics integration
+    api.js             # Axios instance with interceptors
+    auth.js            # Authentication service
+    newsletterService.js # Newsletter subscriptions
+    newspaperService.js # E-journal API calls
+    publicationService.js # Publications API
+    seminarService.js  # Seminars API
+    serviceService.js  # Services API
+    whistleblowerService.js # Whistleblower API
+  /styles               # SCSS stylesheets
+    /components         # Component-specific styles
     /pages              # Page-specific styles
-  /utils                # Utility functions
+    /utils              # Utility styles and mixins
   App.jsx               # Main application component
   index.jsx             # Application entry point
   routes.js             # Route definitions
@@ -79,13 +124,15 @@ docker-compose up -d
   /assets
     /icons              # SVG icons for services
     /images             # Site images
+    /logo               # Logo files
 ```
 
 ## 📦 Installation
 
 ### Prerequisites
-- Node.js (v14.x or higher)
+- Node.js (v18.x or higher)
 - npm or yarn package manager
+- Docker (for containerized deployment)
 
 ### Setup Instructions
 
@@ -103,12 +150,16 @@ yarn install
 ```
 
 3. **Environment Configuration**: 
-   Environment variables are managed centrally in the `integriting-deployment` folder. The frontend gets its environment variables through Docker containers. For development, use the deployment environment files:
-   - `.env.development` for development
-   - `.env.staging` for staging
-   - `.env.production` for production
+   Environment variables are managed centrally in the `integriting-deployment` folder. The frontend gets its environment variables through Docker containers:
+   
+   ```bash
+   cd ../integriting-deployment
+   start-dev.bat    # For development
+   start-staging.bat # For staging
+   start-prod.bat   # For production
+   ```
 
-4. Start the development server
+4. **Manual Development** (without Docker):
 ```bash
 npm run dev
 # or
@@ -117,7 +168,7 @@ yarn dev
 
 5. The application will open in your browser at [http://localhost:3000](http://localhost:3000)
 
-> **Note**: For local development without Docker, you may need to set environment variables manually or use the deployment scripts from the `integriting-deployment` folder.
+> **Note**: For production deployment, always use the Docker-based approach from the `integriting-deployment` folder for proper environment variable management.
 
 ## 🧩 Component Architecture
 
@@ -189,10 +240,10 @@ The application communicates with a RESTful backend API:
 
 ## 📝 Available Scripts
 
-- `npm start` - Starts the development server
-- `npm build` - Creates a production build
-- `npm test` - Runs tests
-- `npm eject` - Ejects from Create React App
+- `npm run dev` - Starts the Vite development server
+- `npm run build` - Creates an optimized production build
+- `npm run preview` - Preview the production build locally
+- `npm run lint` - Run ESLint (if configured)
 
 ## 🚢 Deployment
 
@@ -204,13 +255,26 @@ npm run build
 yarn build
 ```
 
-The build artifacts will be stored in the `build/` directory.
+The build artifacts will be stored in the `dist/` directory.
 
 ### Deployment Options
 
-1. **Static hosting** (Netlify, Vercel, GitHub Pages)
-2. **Container-based** (Docker)
-3. **Traditional hosting** (Apache, Nginx)
+1. **Docker-based Deployment (Recommended)**
+   ```bash
+   cd ../integriting-deployment
+   start-prod.bat
+   ```
+
+2. **Static hosting** (Netlify, Vercel, GitHub Pages)
+3. **Container-based** with custom Docker setup
+4. **Traditional hosting** (Apache, Nginx) - serve the `dist/` folder
+
+### Production Considerations
+
+- The application uses Vite for building and Nginx for serving in production
+- Environment variables are injected at container runtime
+- All static assets are optimized and compressed
+- The production build includes service worker for caching (if configured)
 
 ## 🤝 Contributing
 
