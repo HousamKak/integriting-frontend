@@ -11,6 +11,49 @@ const ManageServices = () => {
   const [error, setError] = useState(null);
   const [deleteConfirm, setDeleteConfirm] = useState(null);
 
+  // Map service icons to their respective image paths
+  const getIconPath = (iconName, serviceTitle) => {
+    const iconMap = {
+      'governance': '/assets/icons/governance-icon.svg',
+      'intellectual-property': '/assets/icons/ip-icon.svg',
+      'intellectual property': '/assets/icons/ip-icon.svg',
+      'ip': '/assets/icons/ip-icon.svg',
+      'contracts': '/assets/icons/contracts-icon.svg',
+      'contract': '/assets/icons/contracts-icon.svg',
+      'compliance': '/assets/icons/compliance-icon.svg',
+      'monitoring': '/assets/icons/monitoring-icon.svg',
+      'whistleblower': '/assets/icons/whistleblower-icon.svg',
+      'whistleblowing': '/assets/icons/whistleblower-icon.svg',
+      'audit': '/assets/icons/compliance-icon.svg',
+      'legal': '/assets/icons/contracts-icon.svg',
+      'corporate': '/assets/icons/governance-icon.svg',
+    };
+    
+    // Try to match by icon name first
+    let sanitizedIconName = iconName?.toLowerCase().trim();
+    let iconPath = iconMap[sanitizedIconName];
+    
+    // If no match, try to match by service title keywords
+    if (!iconPath && serviceTitle) {
+      const titleLower = serviceTitle.toLowerCase();
+      if (titleLower.includes('governance') || titleLower.includes('corporate')) {
+        iconPath = iconMap['governance'];
+      } else if (titleLower.includes('intellectual') || titleLower.includes('property') || titleLower.includes('ip')) {
+        iconPath = iconMap['ip'];
+      } else if (titleLower.includes('contract')) {
+        iconPath = iconMap['contracts'];
+      } else if (titleLower.includes('compliance') || titleLower.includes('audit')) {
+        iconPath = iconMap['compliance'];
+      } else if (titleLower.includes('monitor')) {
+        iconPath = iconMap['monitoring'];
+      } else if (titleLower.includes('whistleblow')) {
+        iconPath = iconMap['whistleblower'];
+      }
+    }
+    
+    return iconPath || '/assets/icons/default-icon.svg';
+  };
+
   // Fetch services
   useEffect(() => {
     const fetchServices = async () => {
@@ -78,9 +121,33 @@ const ManageServices = () => {
     
     setServices(updatedServices);
     
-    // TODO: Update order on the server
-    // This would require a backend endpoint to handle batch updates
-    // For now, we'll just update the UI
+    // Update order on the server
+    try {
+      const orderUpdates = updatedServices.map(service => ({
+        id: service.id,
+        order_number: service.order_number
+      }));
+      
+      const response = await fetch('/api/services/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('integriting_auth_token')}`
+        },
+        body: JSON.stringify({ orders: orderUpdates })
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to update service order');
+      }
+      
+      console.log('Service order updated successfully');
+    } catch (err) {
+      console.error('Error updating service order:', err);
+      setError('Failed to save service order. Please try again.');
+      // Revert the changes if the API call fails
+      window.location.reload();
+    }
   };
 
   if (loading) {
@@ -122,7 +189,13 @@ const ManageServices = () => {
             >
               <div className="service-card__content">
                 <div className="service-card__icon">
-                  <img src={`/assets/icons/${service.icon || 'default-service'}.svg`} alt={service.title} />
+                  <img 
+                    src={getIconPath(service.icon, service.title)} 
+                    alt={service.title}
+                    onError={(e) => {
+                      e.target.src = '/assets/icons/default-icon.svg';
+                    }}
+                  />
                 </div>
                 <h3 className="service-card__title">{service.title}</h3>
                 <p className="service-card__description">

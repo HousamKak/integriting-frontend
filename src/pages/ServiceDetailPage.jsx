@@ -11,51 +11,6 @@ const ServiceDetailPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Mock benefits data (in a real app, this could come from the API)
-  const serviceBenefits = {
-    'governance': [
-      'Enhanced organizational transparency and accountability',
-      'Improved decision-making processes',
-      'Stronger stakeholder confidence and trust',
-      'Better risk management and compliance',
-      'Long-term sustainability and resilience'
-    ],
-    'intellectual-property': [
-      'Secure protection of valuable intellectual assets',
-      'Comprehensive legal safeguards for innovations',
-      'Strategic IP portfolio management',
-      'Prevention of unauthorized use and infringement',
-      'Maximized commercial value of intellectual property'
-    ],
-    'contracts': [
-      'Legally sound and comprehensive agreements',
-      'Protection of interests and mitigation of risks',
-      'Clear definition of rights, obligations, and expectations',
-      'Customized solutions for specific business needs',
-      'Expert guidance throughout negotiation and execution'
-    ],
-    'compliance': [
-      'Adherence to relevant laws, regulations, and standards',
-      'Reduced risk of penalties, fines, and legal actions',
-      'Systematic approach to compliance management',
-      'Regular updates on regulatory changes',
-      'Enhanced organizational reputation and credibility'
-    ],
-    'monitoring': [
-      'Continuous assessment of performance and compliance',
-      'Early identification of issues and opportunities',
-      'Data-driven insights for improvement',
-      'Transparent reporting and accountability',
-      'Adaptable frameworks for changing requirements'
-    ],
-    'whistleblower': [
-      'Confidential and secure reporting channels',
-      'Legal protection for reporting persons',
-      'Prompt and thorough investigation of reports',
-      'Prevention of retaliation and discrimination',
-      'Enhanced organizational ethics and integrity'
-    ]
-  };
 
   useEffect(() => {
     const fetchServiceData = async () => {
@@ -76,8 +31,8 @@ const ServiceDetailPage = () => {
   if (error) return <div className="service-detail__error">{error}</div>;
   if (!service) return <div className="service-detail__not-found">Service not found.</div>;
 
-  // Get benefits based on service icon/type
-  const benefits = serviceBenefits[service.icon] || [];
+  // Get benefits from service data (if available from API)
+  const benefits = service.benefits || [];
 
   return (
     <div className="service-detail">
@@ -93,7 +48,10 @@ const ServiceDetailPage = () => {
         <div className="service-detail__header">
           <div className="service-detail__icon">
             <img 
-              src={`/assets/icons/${service.icon || 'default-service'}.svg`} 
+              src={`/assets/icons/${service.icon}.svg`}
+              onError={(e) => {
+                e.target.src = '/assets/icons/default-icon.svg';
+              }} 
               alt={service.title} 
             />
           </div>
@@ -107,12 +65,9 @@ const ServiceDetailPage = () => {
             <div className="service-detail__text">
               <p>{service.description}</p>
               
-              {/* Additional description - this would come from a more detailed API in a real app */}
-              <p>
-                Our experienced team provides comprehensive solutions tailored to your specific 
-                needs. We work closely with you to understand your challenges and objectives, 
-                delivering effective strategies that drive sustainable success.
-              </p>
+              {service.detailed_description && (
+                <p>{service.detailed_description}</p>
+              )}
             </div>
           </div>
           
@@ -130,47 +85,21 @@ const ServiceDetailPage = () => {
             </div>
           )}
           
-          <div className="service-detail__process">
-            <h2 className="service-detail__section-title">Our Process</h2>
-            
-            <div className="service-detail__process-steps">
-              <div className="process-step">
-                <div className="process-step__number">1</div>
-                <h3 className="process-step__title">Initial Consultation</h3>
-                <p className="process-step__text">
-                  We begin with a thorough discussion to understand your specific needs, 
-                  challenges, and objectives.
-                </p>
-              </div>
+          {service.process_steps && service.process_steps.length > 0 && (
+            <div className="service-detail__process">
+              <h2 className="service-detail__section-title">Our Process</h2>
               
-              <div className="process-step">
-                <div className="process-step__number">2</div>
-                <h3 className="process-step__title">Assessment & Analysis</h3>
-                <p className="process-step__text">
-                  Our experts conduct a comprehensive assessment of your current situation 
-                  and analyze the relevant factors.
-                </p>
-              </div>
-              
-              <div className="process-step">
-                <div className="process-step__number">3</div>
-                <h3 className="process-step__title">Strategy Development</h3>
-                <p className="process-step__text">
-                  We develop a customized strategy and solution tailored to your specific 
-                  requirements and goals.
-                </p>
-              </div>
-              
-              <div className="process-step">
-                <div className="process-step__number">4</div>
-                <h3 className="process-step__title">Implementation & Support</h3>
-                <p className="process-step__text">
-                  Our team works with you to implement the solution and provides ongoing 
-                  support to ensure success.
-                </p>
+              <div className="service-detail__process-steps">
+                {service.process_steps.map((step, index) => (
+                  <div key={index} className="process-step">
+                    <div className="process-step__number">{index + 1}</div>
+                    <h3 className="process-step__title">{step.title}</h3>
+                    <p className="process-step__text">{step.description}</p>
+                  </div>
+                ))}
               </div>
             </div>
-          </div>
+          )}
         </div>
         
         <div className="service-detail__cta">

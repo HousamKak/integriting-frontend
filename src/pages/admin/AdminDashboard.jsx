@@ -41,50 +41,10 @@ const AdminDashboard = () => {
         
         setStats(processedStats);
         
-        // Set recent activity from API or fallback to mock data
-        if (processedStats.recentActivity.length > 0) {
+        // Set recent activity from API
+        if (processedStats.recentActivity && processedStats.recentActivity.length > 0) {
           setRecentActivity(processedStats.recentActivity);
         }
-        
-        // Mock recent activity data - replace with real API call
-        setRecentActivity([
-          { 
-            id: 1,
-            type: 'publication', 
-            action: 'created', 
-            item: 'Corporate Governance Framework 2024', 
-            user: 'Admin',
-            date: new Date(),
-            icon: '📚'
-          },
-          { 
-            id: 2,
-            type: 'seminar', 
-            action: 'updated', 
-            item: 'Compliance Best Practices Workshop', 
-            user: 'Admin',
-            date: new Date(Date.now() - 86400000),
-            icon: '🎤'
-          },
-          { 
-            id: 3,
-            type: 'service', 
-            action: 'created', 
-            item: 'Risk Assessment Consulting', 
-            user: 'Admin',
-            date: new Date(Date.now() - 172800000),
-            icon: '🛠️'
-          },
-          { 
-            id: 4,
-            type: 'whistleblower', 
-            action: 'received', 
-            item: 'Anonymous Report #WB-2024-001', 
-            user: 'System',
-            date: new Date(Date.now() - 259200000),
-            icon: '🛡️'
-          }
-        ]);
         
         setLoading(false);
       } catch (err) {
@@ -103,8 +63,8 @@ const AdminDashboard = () => {
       value: stats.publications,
       icon: '📚',
       color: 'blue',
-      change: '+12%',
-      changeType: 'increase',
+      change: stats.publicationsChange ? `${stats.publicationsChange > 0 ? '+' : ''}${stats.publicationsChange}%` : null,
+      changeType: stats.publicationsChange > 0 ? 'increase' : stats.publicationsChange < 0 ? 'decrease' : 'neutral',
       link: '/admin/publications'
     },
     {
@@ -112,8 +72,8 @@ const AdminDashboard = () => {
       value: stats.services,
       icon: '🛠️',
       color: 'green',
-      change: '+5%',
-      changeType: 'increase',
+      change: stats.servicesChange ? `${stats.servicesChange > 0 ? '+' : ''}${stats.servicesChange}%` : null,
+      changeType: stats.servicesChange > 0 ? 'increase' : stats.servicesChange < 0 ? 'decrease' : 'neutral',
       link: '/admin/services'
     },
     {
@@ -121,8 +81,8 @@ const AdminDashboard = () => {
       value: stats.seminars,
       icon: '🎤',
       color: 'orange',
-      change: '+8%',
-      changeType: 'increase',
+      change: stats.seminarsChange ? `${stats.seminarsChange > 0 ? '+' : ''}${stats.seminarsChange}%` : null,
+      changeType: stats.seminarsChange > 0 ? 'increase' : stats.seminarsChange < 0 ? 'decrease' : 'neutral',
       link: '/admin/seminars'
     },
     {
@@ -130,8 +90,8 @@ const AdminDashboard = () => {
       value: stats.newspapers,
       icon: '📰',
       color: 'purple',
-      change: '+3%',
-      changeType: 'increase',
+      change: stats.newspapersChange ? `${stats.newspapersChange > 0 ? '+' : ''}${stats.newspapersChange}%` : null,
+      changeType: stats.newspapersChange > 0 ? 'increase' : stats.newspapersChange < 0 ? 'decrease' : 'neutral',
       link: '/admin/newspapers'
     },
     {
@@ -139,8 +99,8 @@ const AdminDashboard = () => {
       value: stats.whistleblowerReports,
       icon: '🛡️',
       color: 'red',
-      change: 'New',
-      changeType: 'neutral',
+      change: stats.reportsChange ? `${stats.reportsChange > 0 ? '+' : ''}${stats.reportsChange}%` : null,
+      changeType: stats.reportsChange > 0 ? 'increase' : stats.reportsChange < 0 ? 'decrease' : 'neutral',
       link: '/admin/whistleblower-reports'
     }
   ];
@@ -307,36 +267,6 @@ const AdminDashboard = () => {
           </div>
         </Card>
 
-        {/* System Status */}
-        <Card 
-          title="System Status" 
-          subtitle="Platform health overview"
-          className="admin-dashboard__status-card"
-        >
-          <div className="admin-dashboard__status-items">
-            <div className="admin-dashboard__status-item">
-              <div className="admin-dashboard__status-indicator admin-dashboard__status-indicator--healthy"></div>
-              <div className="admin-dashboard__status-info">
-                <span className="admin-dashboard__status-label">Database</span>
-                <span className="admin-dashboard__status-value">Healthy</span>
-              </div>
-            </div>
-            <div className="admin-dashboard__status-item">
-              <div className="admin-dashboard__status-indicator admin-dashboard__status-indicator--healthy"></div>
-              <div className="admin-dashboard__status-info">
-                <span className="admin-dashboard__status-label">API Services</span>
-                <span className="admin-dashboard__status-value">Online</span>
-              </div>
-            </div>
-            <div className="admin-dashboard__status-item">
-              <div className="admin-dashboard__status-indicator admin-dashboard__status-indicator--warning"></div>
-              <div className="admin-dashboard__status-info">
-                <span className="admin-dashboard__status-label">Storage</span>
-                <span className="admin-dashboard__status-value">85% Used</span>
-              </div>
-            </div>
-          </div>
-        </Card>
 
       </div>
     </div>
