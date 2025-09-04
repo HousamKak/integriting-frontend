@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
-import { getDashboardStats } from '../../services/api';
+import { getDashboardStats, getSystemHealth } from '../../services/api';
 import { Card, Button } from '../../components/admin/ui';
 import '../../styles/pages/AdminDashboard.scss';
 
@@ -17,6 +17,8 @@ const AdminDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [recentActivity, setRecentActivity] = useState([]);
+  const [systemHealth, setSystemHealth] = useState(null);
+  const [healthLoading, setHealthLoading] = useState(true);
 
   useEffect(() => {
     const fetchDashboardData = async () => {
@@ -54,7 +56,27 @@ const AdminDashboard = () => {
       }
     };
 
+    const fetchSystemHealth = async () => {
+      try {
+        setHealthLoading(true);
+        const healthData = await getSystemHealth();
+        setSystemHealth(healthData);
+        setHealthLoading(false);
+      } catch (err) {
+        console.error('System health fetch error:', err);
+        setSystemHealth({
+          status: 'unhealthy',
+          services: {
+            backend: { status: 'unhealthy', error: err.message },
+            database: { status: 'unhealthy', error: err.message }
+          }
+        });
+        setHealthLoading(false);
+      }
+    };
+
     fetchDashboardData();
+    fetchSystemHealth();
   }, []);
 
   const statsCards = [
@@ -134,6 +156,34 @@ const AdminDashboard = () => {
     return 'Just now';
   };
 
+  const formatUptime = (seconds) => {
+    const days = Math.floor(seconds / (24 * 60 * 60));
+    const hours = Math.floor((seconds % (24 * 60 * 60)) / (60 * 60));
+    const minutes = Math.floor((seconds % (60 * 60)) / 60);
+
+    if (days > 0) return `${days}d ${hours}h ${minutes}m`;
+    if (hours > 0) return `${hours}h ${minutes}m`;
+    return `${minutes}m`;
+  };
+
+  const getHealthStatusColor = (status) => {
+    switch (status) {
+      case 'healthy': return 'green';
+      case 'degraded': return 'yellow';
+      case 'unhealthy': return 'red';
+      default: return 'gray';
+    }
+  };
+
+  const getHealthStatusIcon = (status) => {
+    switch (status) {
+      case 'healthy': return '✅';
+      case 'degraded': return '⚠️';
+      case 'unhealthy': return '❌';
+      default: return '❓';
+    }
+  };
+
   if (loading) {
     return (
       <div className="admin-dashboard">
@@ -196,6 +246,7 @@ const AdminDashboard = () => {
           </Link>
         ))}
       </div>
+
 
       {/* Main Content Grid */}
       <div className="admin-dashboard__content-grid">
@@ -265,6 +316,72 @@ const AdminDashboard = () => {
               </div>
             )}
           </div>
+        </Card>
+
+        {/* System Health Status */}
+        <Card 
+          title="System Health" 
+          subtitle="Backend and database monitoring"
+          className="admin-dashboard__health-card"
+        >
+          {healthLoading ? (
+            <div className="admin-dashboard__health-loading">
+              <div className="loading-spinner"></div>
+              <p>Checking status...</p>
+            </div>
+          ) : systemHealth ? (
+            <div className="admin-dashboard__health-content">
+              {/* Overall Status */}
+              <div className="admin-dashboard__health-overview">
+                <div className="admin-dashboard__health-main-status">
+                  <div className={`admin-dashboard__health-light admin-dashboard__health-light--${getHealthStatusColor(systemHealth.status)}`}></div>
+                  <span className="admin-dashboard__health-status-text">
+                    System {systemHealth.status?.toUpperCase()}
+                  </span>
+                </div>
+                {systemHealth.uptime && (
+                  <div className="admin-dashboard__health-uptime">
+                    Uptime: {formatUptime(systemHealth.uptime)}
+                  </div>
+                )}
+              </div>
+
+              {/* Services */}
+              <div className="admin-dashboard__health-services">
+                <div className="admin-dashboard__health-service">
+                  <div className={`admin-dashboard__health-service-light admin-dashboard__health-service-light--${getHealthStatusColor(systemHealth.services?.backend?.status)}`}></div>
+                  <span className="admin-dashboard__health-service-name">Backend API</span>
+                </div>
+                <div className="admin-dashboard__health-service">
+                  <div className={`admin-dashboard__health-service-light admin-dashboard__health-service-light--${getHealthStatusColor(systemHealth.services?.database?.status)}`}></div>
+                  <span className="admin-dashboard__health-service-name">Database</span>
+                </div>
+              </div>
+
+              {/* Error Messages (only if errors exist) */}
+              {(systemHealth.services?.backend?.error || systemHealth.services?.database?.error) && (
+                <div className="admin-dashboard__health-errors">
+                  {systemHealth.services?.backend?.error && (
+                    <div className="admin-dashboard__health-error">
+                      <div className="admin-dashboard__health-error-light"></div>
+                      Backend: {systemHealth.services.backend.error}
+                    </div>
+                  )}
+                  {systemHealth.services?.database?.error && (
+                    <div className="admin-dashboard__health-error">
+                      <div className="admin-dashboard__health-error-light"></div>
+                      Database: {systemHealth.services.database.error}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="admin-dashboard__health-error">
+              <div className="admin-dashboard__health-error-icon">⚠️</div>
+              <p>Unable to load system status</p>
+            </div>
+          )}
         </Card>
 
 

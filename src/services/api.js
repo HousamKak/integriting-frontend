@@ -143,4 +143,66 @@ export const getDashboardStats = async () => {
   }
 };
 
+// Health check endpoints
+export const getSystemHealth = async () => {
+  try {
+    const response = await api.get('/admin/health');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching system health:', error);
+    return {
+      status: 'unhealthy',
+      timestamp: new Date().toISOString(),
+      uptime: 0,
+      environment: 'unknown',
+      services: {
+        backend: {
+          status: 'unhealthy',
+          error: error.message
+        },
+        database: {
+          status: 'unhealthy',
+          error: error.message
+        }
+      }
+    };
+  }
+};
+
+export const getDatabaseHealth = async () => {
+  try {
+    const response = await api.get('/admin/health/database');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching database health:', error);
+    return {
+      status: 'unhealthy',
+      timestamp: new Date().toISOString(),
+      database: {
+        type: 'unknown',
+        connection: 'failed',
+        error: error.message,
+        tables: {}
+      }
+    };
+  }
+};
+
+export const getBackendHealth = async () => {
+  try {
+    const response = await api.get('/admin/health/backend');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching backend health:', error);
+    return {
+      status: 'unhealthy',
+      timestamp: new Date().toISOString(),
+      backend: {
+        uptime: 0,
+        error: error.message
+      }
+    };
+  }
+};
+
 export default api;
