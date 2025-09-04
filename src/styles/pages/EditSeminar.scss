@@ -4,6 +4,9 @@
 
 .edit-seminar {
   padding: $spacing-8 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   
   &__form {
     background-color: $white;
@@ -11,6 +14,14 @@
     padding: $spacing-6;
     box-shadow: $shadow-md;
     max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    
+    @media (max-width: $breakpoint-md) {
+      padding: $spacing-4;
+      margin: 0 $spacing-4;
+      max-width: calc(100% - #{$spacing-8});
+    }
   }
 }
 
