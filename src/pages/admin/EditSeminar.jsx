@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getSeminarById, createSeminar, updateSeminar } from '../../services/seminarService';
-import Button from '../../components/common/Button';
+import { Button, Card, LoadingSpinner, Input, Select, FileUpload } from '../../components/admin/ui';
 import '../../styles/pages/EditSeminar.scss';
 
 const EditSeminar = () => {
@@ -29,7 +29,10 @@ const EditSeminar = () => {
   // Fetch seminar data if editing existing seminar
   useEffect(() => {
     const fetchSeminar = async () => {
-      if (isNewSeminar) return;
+      if (isNewSeminar || !id || id === 'undefined') {
+        setLoading(false);
+        return;
+      }
       
       try {
         const data = await getSeminarById(id);

@@ -12,7 +12,7 @@ export const getAllSeminars = async () => {
 
 export const getUpcomingSeminars = async () => {
   try {
-    const response = await api.get('/seminars?status=Upcoming');
+    const response = await api.get('/seminars/upcoming');
     return response.data;
   } catch (error) {
     console.error('Error fetching upcoming seminars:', error);
@@ -22,7 +22,7 @@ export const getUpcomingSeminars = async () => {
 
 export const getPastSeminars = async () => {
   try {
-    const response = await api.get('/seminars?status=Past');
+    const response = await api.get('/seminars/past');
     return response.data;
   } catch (error) {
     console.error('Error fetching past seminars:', error);

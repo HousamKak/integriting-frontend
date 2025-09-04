@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getNewspapers, deleteNewspaper } from '../../services/newspaperService';
-import Button from '../../components/common/Button';
+import { Button, Card, LoadingSpinner } from '../../components/admin/ui';
 import '../../styles/pages/ManageNewspapers.scss';
 
 const ManageNewspapers = () => {
@@ -19,11 +19,15 @@ const ManageNewspapers = () => {
     const fetchNewspapers = async () => {
       try {
         const data = await getNewspapers();
-        setNewspapers(data);
-        setFilteredNewspapers(data);
+        
+        // Ensure data is properly formatted as an array
+        const newspapersArray = Array.isArray(data) ? data : (data?.newspapers || data?.data || []);
+        
+        setNewspapers(newspapersArray);
+        setFilteredNewspapers(newspapersArray);
         
         // Extract unique years from issue_date
-        const years = [...new Set(data.map(newspaper => {
+        const years = [...new Set(newspapersArray.map(newspaper => {
           const date = new Date(newspaper.issue_date);
           return date.getFullYear();
         }))].sort((a, b) => b - a); // Sort years in descending order
@@ -88,14 +92,20 @@ const ManageNewspapers = () => {
     });
   };
 
-  if (loading) return <div className="admin-loading">Loading newspapers...</div>;
-  if (error) return <div className="admin-error">{error}</div>;
+  if (loading) return <LoadingSpinner />;
+  if (error) return <Card variant="error"><p>{error}</p></Card>;
 
   return (
-    <div className="manage-newspapers">
+    <Card>
       <div className="admin-header">
         <h1>Manage E-Newspapers</h1>
-        <Button to="/admin/newspapers/new" variant="accent">Add New Issue</Button>
+        <Link to="/admin/newspapers/new">
+          <Button 
+            variant="primary"
+          >
+            Add New Issue
+          </Button>
+        </Link>
       </div>
 
       <div className="admin-filters">
@@ -189,10 +199,16 @@ const ManageNewspapers = () => {
       ) : (
         <div className="admin-empty">
           <p>No newspapers found for this year. Please select another year or add a new issue.</p>
-          <Button to="/admin/newspapers/new" variant="primary">Add New Issue</Button>
+          <Link to="/admin/newspapers/new">
+            <Button 
+              variant="primary"
+            >
+              Add New Issue
+            </Button>
+          </Link>
         </div>
       )}
-    </div>
+    </Card>
   );
 };
 export default ManageNewspapers;

@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getNewspaperById, createNewspaper, updateNewspaper } from '../../services/newspaperService';
-import Button from '../../components/common/Button';
+import { Button, Card, LoadingSpinner, Input, Select, FileUpload } from '../../components/admin/ui';
 import '../../styles/pages/EditNewspaper.scss';
 
 const EditNewspaper = () => {
@@ -29,7 +29,10 @@ const EditNewspaper = () => {
   // Fetch newspaper data if editing existing newspaper
   useEffect(() => {
     const fetchNewspaper = async () => {
-      if (isNewNewspaper) return;
+      if (isNewNewspaper || !id || id === 'undefined') {
+        setLoading(false);
+        return;
+      }
       
       try {
         const data = await getNewspaperById(id);

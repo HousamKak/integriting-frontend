@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getAllSeminars, deleteSeminar } from '../../services/seminarService';
-import Button from '../../components/common/Button';
+import { Button, Card, LoadingSpinner } from '../../components/admin/ui';
 import '../../styles/pages/ManageSeminars.scss';
 
 const ManageSeminars = () => {
@@ -18,8 +18,12 @@ const ManageSeminars = () => {
     const fetchSeminars = async () => {
       try {
         const data = await getAllSeminars();
-        setSeminars(data);
-        setFilteredSeminars(data);
+        
+        // Ensure data is properly formatted as an array
+        const seminarsArray = Array.isArray(data) ? data : (data?.seminars || data?.data || []);
+        
+        setSeminars(seminarsArray);
+        setFilteredSeminars(seminarsArray);
         setLoading(false);
       } catch (err) {
         setError('Failed to load seminars. Please try again later.');
@@ -32,6 +36,8 @@ const ManageSeminars = () => {
 
   // Filter seminars based on status
   useEffect(() => {
+    if (!Array.isArray(seminars)) return;
+    
     if (activeFilter === 'All') {
       setFilteredSeminars(seminars);
     } else {
@@ -75,14 +81,20 @@ const ManageSeminars = () => {
     });
   };
 
-  if (loading) return <div className="admin-loading">Loading seminars...</div>;
-  if (error) return <div className="admin-error">{error}</div>;
+  if (loading) return <LoadingSpinner />;
+  if (error) return <Card variant="error"><p>{error}</p></Card>;
 
   return (
-    <div className="manage-seminars">
+    <Card>
       <div className="admin-header">
         <h1>Manage Seminars</h1>
-        <Button to="/admin/seminars/new" variant="accent">Add New Seminar</Button>
+        <Link to="/admin/seminars/new">
+          <Button 
+            variant="primary"
+          >
+          Add New Seminar
+          </Button>
+        </Link>
       </div>
 
       <div className="seminars-filter">
@@ -187,10 +199,16 @@ const ManageSeminars = () => {
       ) : (
         <div className="admin-empty">
           <p>No seminars found matching your criteria.</p>
-          <Button to="/admin/seminars/new" variant="primary">Add Seminar</Button>
+          <Link to="/admin/seminars/new">
+            <Button 
+              variant="primary"
+            >
+              Add Seminar
+            </Button>
+          </Link>
         </div>
       )}
-    </div>
+    </Card>
   );
 };
 

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getServices, deleteService } from '../../services/serviceService';
-import Button from '../../components/common/Button';
+import { Button, Card, LoadingSpinner } from '../../components/admin/ui';
 import '../../styles/pages/ManageServices.scss';
 
 const ManageServices = () => {
@@ -16,9 +16,14 @@ const ManageServices = () => {
     const fetchServices = async () => {
       try {
         const data = await getServices();
-        setServices(data);
+        
+        // Ensure data is an array - handle different response formats
+        const servicesArray = Array.isArray(data) ? data : (data?.services || data?.data || []);
+        
+        setServices(servicesArray);
         setLoading(false);
       } catch (err) {
+        console.error('Error in fetchServices:', err);
         setError('Failed to load services. Please try again later.');
         setLoading(false);
       }
@@ -78,21 +83,33 @@ const ManageServices = () => {
     // For now, we'll just update the UI
   };
 
-  if (loading) return <div className="admin-loading">Loading services...</div>;
-  if (error) return <div className="admin-error">{error}</div>;
+  if (loading) {
+    return <LoadingSpinner />;
+  }
+  
+  if (error) {
+    return <Card variant="error"><p>{error}</p></Card>;
+  }
 
-  return (
-    <div className="manage-services">
-      <div className="admin-header">
-        <h1>Manage Services</h1>
-        <Button to="/admin/services/new" variant="accent">Add New Service</Button>
-      </div>
+  try {
+    return (
+      <Card>
+        <div className="admin-header">
+          <h1>Manage Services</h1>
+          <Link to="/admin/services/new">
+            <Button 
+              variant="primary"
+            >
+              Add New Service
+            </Button>
+          </Link>
+        </div>
 
       <div className="admin-info">
         <p>Drag and drop services to reorder them on the homepage. Changes to order will be saved automatically.</p>
       </div>
 
-      {services.length > 0 ? (
+      {Array.isArray(services) && services.length > 0 ? (
         <div className="services-grid">
           {services.map((service, index) => (
             <div 
@@ -161,11 +178,21 @@ const ManageServices = () => {
       ) : (
         <div className="admin-empty">
           <p>No services found. Add your first service to get started.</p>
-          <Button to="/admin/services/new" variant="primary">Add Service</Button>
+          <Link to="/admin/services/new">
+            <Button 
+              variant="primary"
+            >
+              Add Service
+            </Button>
+          </Link>
         </div>
       )}
-    </div>
+    </Card>
   );
+  } catch (renderError) {
+    console.error('Error rendering ManageServices:', renderError);
+    return <Card><p>Error rendering services: {renderError.message}</p></Card>;
+  }
 };
 
 export default ManageServices;

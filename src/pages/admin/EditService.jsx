@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getServiceById, createService, updateService } from '../../services/serviceService';
-import Button from '../../components/common/Button';
+import { Button, Card, LoadingSpinner, Input, Select } from '../../components/admin/ui';
 import '../../styles/pages/EditService.scss';
 
 const EditService = () => {
@@ -34,7 +34,10 @@ const EditService = () => {
   // Fetch service data if editing existing service
   useEffect(() => {
     const fetchService = async () => {
-      if (isNewService) return;
+      if (isNewService || !id || id === 'undefined') {
+        setLoading(false);
+        return;
+      }
       
       try {
         const data = await getServiceById(id);

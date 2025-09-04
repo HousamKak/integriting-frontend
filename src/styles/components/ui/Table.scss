@@ -1,0 +1,347 @@
+@import '../../variables';
+
+$table-border-radius: 12px;
+$table-border-color: #e2e8f0;
+$table-header-bg: #f8fafc;
+$table-row-hover: #f8fafc;
+$table-selected: #eff6ff;
+
+.admin-table {
+  background: #ffffff;
+  border: 1px solid $table-border-color;
+  border-radius: $table-border-radius;
+  overflow: hidden;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+
+  // Header Section
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: $table-header-bg;
+    border-bottom: 1px solid $table-border-color;
+    gap: 1rem;
+    
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.75rem;
+    }
+  }
+
+  &__search {
+    max-width: 300px;
+    
+    @media (max-width: 768px) {
+      max-width: none;
+    }
+  }
+
+  &__selection-info {
+    font-size: 0.875rem;
+    color: #2563eb;
+    font-weight: 500;
+    background: rgba(37, 99, 235, 0.1);
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+  }
+
+  // Table Container
+  &__container {
+    overflow-x: auto;
+    
+    &::-webkit-scrollbar {
+      height: 6px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 3px;
+      
+      &:hover {
+        background: #94a3b8;
+      }
+    }
+  }
+
+  // Table
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+  }
+
+  // Table Head
+  &__thead {
+    background: $table-header-bg;
+    border-bottom: 2px solid $table-border-color;
+  }
+
+  &__header-row {
+    // Header row styles
+  }
+
+  &__th {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: #374151;
+    border-right: 1px solid $table-border-color;
+    white-space: nowrap;
+    
+    &:last-child {
+      border-right: none;
+    }
+    
+    &--sortable {
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        background: #e2e8f0;
+        
+        .admin-table__sort-icon {
+          opacity: 1;
+        }
+      }
+    }
+    
+    &--checkbox {
+      width: 40px;
+      padding: 0.75rem 0.5rem;
+    }
+  }
+
+  &__th-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  &__th-text {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    color: #6b7280;
+  }
+
+  &__sort-icon {
+    opacity: 0.3;
+    font-size: 0.75rem;
+    color: #6b7280;
+    transition: opacity 0.2s ease;
+    min-width: 12px;
+    text-align: center;
+  }
+
+  // Table Body
+  &__tbody {
+    // Body styles
+  }
+
+  &__row {
+    border-bottom: 1px solid $table-border-color;
+    transition: all 0.15s ease;
+    
+    &:last-child {
+      border-bottom: none;
+    }
+    
+    &:hover {
+      background: $table-row-hover;
+    }
+    
+    &--clickable {
+      cursor: pointer;
+      
+      &:hover {
+        background: rgba(59, 130, 246, 0.05);
+      }
+    }
+  }
+
+  &__td {
+    padding: 0.875rem 1rem;
+    color: #1f2937;
+    border-right: 1px solid #f3f4f6;
+    vertical-align: middle;
+    
+    &:last-child {
+      border-right: none;
+    }
+    
+    &--checkbox {
+      width: 40px;
+      padding: 0.875rem 0.5rem;
+    }
+  }
+
+  &__cell-content {
+    display: block;
+    line-height: 1.4;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__checkbox {
+    accent-color: #2563eb;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+  }
+
+  // Empty State
+  &__empty {
+    padding: 3rem 1rem;
+    text-align: center;
+    color: #6b7280;
+  }
+
+  &__empty-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__empty-icon {
+    font-size: 3rem;
+    opacity: 0.5;
+  }
+
+  // Loading State
+  &__loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1rem;
+    color: #6b7280;
+    
+    p {
+      margin-top: 1rem;
+      font-size: 0.875rem;
+    }
+  }
+
+  &__loading-spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid #f3f4f6;
+    border-top: 3px solid #2563eb;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  // Pagination
+  &__pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: $table-header-bg;
+    border-top: 1px solid $table-border-color;
+    
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: stretch;
+    }
+  }
+
+  &__pagination-info {
+    font-size: 0.875rem;
+    color: #6b7280;
+    
+    @media (max-width: 768px) {
+      text-align: center;
+    }
+  }
+
+  &__pagination-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    
+    @media (max-width: 768px) {
+      justify-content: center;
+    }
+  }
+
+  &__page-numbers {
+    display: flex;
+    gap: 0.25rem;
+    margin: 0 0.5rem;
+  }
+
+  // Loading state modifier
+  &--loading {
+    .admin-table__container {
+      display: none;
+    }
+    
+    .admin-table__pagination {
+      display: none;
+    }
+  }
+}
+
+// Animations
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// Responsive adjustments
+@media (max-width: 640px) {
+  .admin-table {
+    &__th,
+    &__td {
+      padding: 0.5rem 0.75rem;
+    }
+    
+    &__th-text {
+      font-size: 0.6875rem;
+    }
+    
+    &__cell-content {
+      max-width: 120px;
+    }
+    
+    &__pagination {
+      padding: 0.75rem 1rem;
+    }
+    
+    &__pagination-controls {
+      gap: 0.125rem;
+      
+      .admin-btn {
+        min-height: 32px;
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+      }
+    }
+    
+    &__page-numbers {
+      margin: 0 0.25rem;
+      gap: 0.125rem;
+    }
+  }
+}
+
+// Dark mode support (if implemented later)
+@media (prefers-color-scheme: dark) {
+  .admin-table {
+    // Dark mode styles can be added here
+  }
+}

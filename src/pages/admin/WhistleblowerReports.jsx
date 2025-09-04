@@ -1,10 +1,12 @@
 // src/pages/admin/WhistleblowerReports.jsx
 import React, { useState, useEffect } from 'react';
 import { getWhistleblowerReports, updateReportStatus } from '../../services/whistleblowerService';
-import Button from '../../components/common/Button';
+import { Button, Card, LoadingSpinner } from '../../components/admin/ui';
+import { useAuth } from '../../contexts/AuthContext';
 import '../../styles/pages/WhistleblowerReports.scss';
 
 const WhistleblowerReports = () => {
+  const { currentUser, isAdmin } = useAuth();
   const [reports, setReports] = useState([]);
   const [filteredReports, setFilteredReports] = useState([]);
   const [activeFilter, setActiveFilter] = useState('All');
@@ -18,10 +20,25 @@ const WhistleblowerReports = () => {
   // Fetch reports
   useEffect(() => {
     const fetchReports = async () => {
+      // Check if user is admin before making the request
+      if (!isAdmin) {
+        setError('Access denied. You need admin privileges to view reports.');
+        setLoading(false);
+        return;
+      }
+      
       try {
+        console.log('WhistleblowerReports - Current user:', currentUser, 'Is Admin:', isAdmin);
+        console.log('Auth token (auth_token):', localStorage.getItem('auth_token') ? 'Present' : 'Missing');
+        console.log('Auth token (integriting_auth_token):', localStorage.getItem('integriting_auth_token') ? 'Present' : 'Missing');
+        console.log('User in localStorage:', localStorage.getItem('user'));
         const data = await getWhistleblowerReports();
+        
+        // Ensure data is properly formatted as an array
+        const reportsArray = Array.isArray(data) ? data : (data?.reports || data?.data || []);
+        
         // Sort reports by creation date (newest first)
-        const sortedReports = data.sort((a, b) => 
+        const sortedReports = reportsArray.sort((a, b) => 
           new Date(b.created_at) - new Date(a.created_at)
         );
         
@@ -29,13 +46,20 @@ const WhistleblowerReports = () => {
         setFilteredReports(sortedReports);
         setLoading(false);
       } catch (err) {
-        setError('Failed to load reports. Please try again later.');
+        console.error('Whistleblower reports error:', err);
+        if (err.response?.status === 403) {
+          setError('Access denied. You need admin privileges to view reports.');
+        } else if (err.response?.status === 401) {
+          setError('Authentication failed. Please try logging in again.');
+        } else {
+          setError('Failed to load reports. Please try again later.');
+        }
         setLoading(false);
       }
     };
 
     fetchReports();
-  }, []);
+  }, [isAdmin, currentUser]);
 
   // Filter reports based on status
   useEffect(() => {

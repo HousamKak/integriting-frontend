@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getPublicationById, getCategories, createPublication, updatePublication } from '../../services/publicationService';
-import Button from '../../components/common/Button';
+import { Button, Card, LoadingSpinner, Input, Select, FileUpload } from '../../components/admin/ui';
 import '../../styles/pages/EditPublication.scss';
 
 const EditPublication = () => {
@@ -31,10 +31,13 @@ const EditPublication = () => {
       try {
         // Fetch categories
         const categoriesData = await getCategories();
-        setCategories(categoriesData);
+        
+        // Ensure categories data is properly formatted as an array
+        const categoriesArray = Array.isArray(categoriesData) ? categoriesData : (categoriesData?.categories || categoriesData?.data || []);
+        setCategories(categoriesArray);
         
         // If editing existing publication, fetch its data
-        if (!isNewPublication) {
+        if (!isNewPublication && id && id !== 'undefined') {
           const publicationData = await getPublicationById(id);
           
           // Format date for input field (YYYY-MM-DD)
@@ -186,7 +189,7 @@ const EditPublication = () => {
               required
             >
               <option value="">Select a category</option>
-              {categories.map(category => (
+              {Array.isArray(categories) && categories.map(category => (
                 <option key={category.id || category.name} value={category.name}>
                   {category.name}
                 </option>

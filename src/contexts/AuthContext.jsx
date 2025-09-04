@@ -24,13 +24,15 @@ export const AuthProvider = ({ children }) => {
       if (storedUser) {
         setCurrentUser(storedUser);
         
-        // Verify token is still valid by fetching current user data
+        // Always verify the token with the server, regardless of email
+        // This ensures that mock tokens are rejected when the backend is available
         try {
           const userData = await getCurrentUser();
           // Update with latest user data from server
           setCurrentUser(userData);
         } catch (err) {
-          // If token is invalid, log out
+          // If token is invalid (including mock tokens), log out
+          console.log('Token verification failed, logging out');
           logoutService();
           setCurrentUser(null);
         }
@@ -63,7 +65,11 @@ export const AuthProvider = ({ children }) => {
 
   // Authentication value to provide
   const value = {
-    currentUser,
+    currentUser: currentUser ? {
+      ...currentUser,
+      username: currentUser.username || currentUser.name, // Ensure username exists
+      isAdmin: currentUser.role === 'admin' // Add isAdmin property
+    } : null,
     isAuthenticated: !!currentUser,
     isAdmin: currentUser?.role === 'admin',
     isEditor: currentUser?.role === 'editor',

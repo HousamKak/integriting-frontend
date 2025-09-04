@@ -142,8 +142,11 @@ const Header = () => {
                     onClick={toggleDropdown}
                     aria-expanded={dropdownOpen}
                     aria-controls="user-dropdown"
+                    title={`${currentUser.username || 'User'} - Click for options`}
                   >
-                    {currentUser.username}
+                    <div className="header__user-avatar">
+                      <span className="header__user-icon" aria-hidden="true">👤</span>
+                    </div>
                     <span className="header__dropdown-icon" aria-hidden="true">▼</span>
                   </button>
                   <div 
@@ -151,13 +154,24 @@ const Header = () => {
                     className={`header__dropdown ${dropdownOpen ? 'header__dropdown--active' : ''}`}
                     aria-hidden={!dropdownOpen}
                   >
-                    {currentUser.role === 'admin' && (
-                      <Link to="/admin" className="header__dropdown-item">Admin Dashboard</Link>
+                    <div className="header__dropdown-header">
+                      <div className="header__dropdown-user">
+                        <span className="header__dropdown-username">{currentUser.username || 'Administrator'}</span>
+                        <span className="header__dropdown-role">{currentUser.role === 'admin' ? 'Admin' : 'User'}</span>
+                      </div>
+                    </div>
+                    <div className="header__dropdown-divider"></div>
+                    {(currentUser?.role === 'admin' || currentUser?.isAdmin) && (
+                      <Link to="/admin" className="header__dropdown-item" onClick={() => setDropdownOpen(false)}>
+                        <span className="header__dropdown-item-icon">🏠</span>
+                        Admin Dashboard
+                      </Link>
                     )}
                     <button 
                       className="header__dropdown-item header__dropdown-item--button"
                       onClick={handleLogout}
                     >
+                      <span className="header__dropdown-item-icon">🚪</span>
                       Log Out
                     </button>
                   </div>
