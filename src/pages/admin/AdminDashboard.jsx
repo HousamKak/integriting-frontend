@@ -7,6 +7,15 @@ import '../../styles/pages/AdminDashboard.scss';
 
 const AdminDashboard = () => {
   const { currentUser } = useAuth();
+  
+  // Helper function to get greeting based on time of day
+  const getTimeOfDay = () => {
+    const hour = new Date().getHours();
+    if (hour < 12) return 'morning';
+    if (hour < 17) return 'afternoon';
+    return 'evening';
+  };
+  
   const [stats, setStats] = useState({
     publications: 0,
     services: 0,
@@ -214,20 +223,33 @@ const AdminDashboard = () => {
       {/* Welcome Header */}
       <div className="admin-dashboard__header">
         <div className="admin-dashboard__welcome">
-          <h1 className="admin-dashboard__title">
-            Welcome back, {currentUser?.username || 'Administrator'}! 👋
-          </h1>
-          <p className="admin-dashboard__subtitle">
-            Here's what's happening with your platform today
-          </p>
+          <div className="admin-dashboard__greeting">
+            <span className="admin-dashboard__wave">👋</span>
+            <div className="admin-dashboard__text">
+              <h1 className="admin-dashboard__title">
+                Good {getTimeOfDay()}, {currentUser?.username || 'Administrator'}
+              </h1>
+              <p className="admin-dashboard__subtitle">
+                Here's your platform overview for today
+              </p>
+            </div>
+          </div>
         </div>
-        <div className="admin-dashboard__date">
-          {new Date().toLocaleDateString('en-US', { 
-            weekday: 'long', 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric' 
-          })}
+        <div className="admin-dashboard__date-card">
+          <div className="admin-dashboard__date">
+            {new Date().toLocaleDateString('en-US', { 
+              weekday: 'long', 
+              year: 'numeric', 
+              month: 'long', 
+              day: 'numeric' 
+            })}
+          </div>
+          <div className="admin-dashboard__time">
+            {new Date().toLocaleTimeString('en-US', { 
+              hour: '2-digit', 
+              minute: '2-digit' 
+            })}
+          </div>
         </div>
       </div>
 

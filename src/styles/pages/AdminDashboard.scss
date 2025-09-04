@@ -33,44 +33,63 @@ $dashboard-text-muted: #94a3b8;
   &__header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     margin-bottom: 2rem;
-    padding: $dashboard-spacing;
-    background: linear-gradient(135deg, $dashboard-primary 0%, #1d4ed8 100%);
+    padding: 2rem;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border: 1px solid #e2e8f0;
     border-radius: $dashboard-border-radius;
-    color: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
     position: relative;
     overflow: hidden;
     
     &::before {
       content: '';
       position: absolute;
-      top: -50%;
-      right: -50%;
-      width: 100%;
-      height: 200%;
-      background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
-      transform: rotate(45deg);
-      animation: shimmer 3s infinite;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #e9b949 0%, #1a365d 50%, #2a4a7f 100%);
     }
     
     @media (max-width: 768px) {
       flex-direction: column;
-      gap: 1rem;
-      text-align: center;
+      gap: 1.5rem;
+      padding: 1.5rem;
     }
   }
 
   &__welcome {
     flex: 1;
-    z-index: 1;
+  }
+
+  &__greeting {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__wave {
+    font-size: 2.5rem;
+    animation: wave 2s ease-in-out infinite;
+    
+    @media (max-width: 768px) {
+      font-size: 2rem;
+    }
+  }
+
+  &__text {
+    flex: 1;
   }
 
   &__title {
-    font-size: 2rem;
+    font-size: 1.875rem;
     font-weight: 700;
     margin: 0 0 0.5rem 0;
     line-height: 1.2;
+    color: $dashboard-text;
+    font-family: 'Inter', sans-serif;
     
     @media (max-width: 768px) {
       font-size: 1.5rem;
@@ -78,26 +97,45 @@ $dashboard-text-muted: #94a3b8;
   }
 
   &__subtitle {
-    font-size: 1.1rem;
-    opacity: 0.9;
+    font-size: 1rem;
     margin: 0;
+    color: $dashboard-text-light;
     font-weight: 400;
     
     @media (max-width: 768px) {
-      font-size: 1rem;
+      font-size: 0.9rem;
+    }
+  }
+
+  &__date-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+    padding: 1rem 1.25rem;
+    background: rgba(26, 54, 93, 0.03);
+    border: 1px solid rgba(26, 54, 93, 0.1);
+    border-radius: 12px;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    
+    @media (max-width: 768px) {
+      align-items: center;
+      text-align: center;
     }
   }
 
   &__date {
     font-size: 0.875rem;
-    opacity: 0.8;
+    font-weight: 600;
+    color: $dashboard-text;
+    margin: 0;
+  }
+
+  &__time {
+    font-size: 0.75rem;
+    color: $dashboard-text-light;
     font-weight: 500;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    -webkit-backdrop-filter:blur(10px);
-    backdrop-filter: blur(10px);
-    z-index: 1;
   }
 
   // Stats Grid
@@ -831,14 +869,30 @@ $dashboard-text-muted: #94a3b8;
   100% { transform: rotate(360deg); }
 }
 
-@keyframes shimmer {
-  0% { transform: translateX(-100%) rotate(45deg); }
-  100% { transform: translateX(300%) rotate(45deg); }
-}
-
 @keyframes pulse {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.5; }
+}
+
+@keyframes wave {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  10%, 30% {
+    transform: rotate(14deg);
+  }
+  20% {
+    transform: rotate(-8deg);
+  }
+  40% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+  60% {
+    transform: rotate(0deg);
+  }
 }
 
 @keyframes healthPulse {
